@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2021-06-30T09:28:29
+# Project created by QtCreator 2021-06-30T13:07:09
 #
 #-------------------------------------------------
 
@@ -8,7 +8,7 @@ QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = ThunderClient
+TARGET = ThunderServer
 TEMPLATE = app
 
 # The following define makes your compiler emit warnings if you use
@@ -25,24 +25,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        clientmain.cpp \
-        connectrequest.cpp \
+        analysismsg.cpp \
+        correspond.cpp \
+        data.cpp \
         main.cpp \
-        login.cpp \
-        model/student.cpp \
-        studentview.cpp
+        mainwindow.cpp \
+        servermain.cpp
 
 HEADERS += \
-        clientmain.h \
+        analysismsg.h \
         config.h \
-        connectrequest.h \
-        login.h \
-        model/student.h \
-        studentview.h
+        correspond.h \
+        data.h \
+        mainwindow.h \
+        servermain.h
 
 FORMS += \
-        login.ui \
-        studentview.ui
+        mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
