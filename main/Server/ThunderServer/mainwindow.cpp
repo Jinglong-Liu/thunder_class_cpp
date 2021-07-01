@@ -7,8 +7,12 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    qRegisterMetaType<Prepare>("Prepare");
+    data = new Data();//一份，注意线程同步
+    onlineData = new OnlineData();
+    //analyser = new AnalysisMsg();
     //correspondThread = new QThread();
-    correspond = new Correspond;
+    correspond = new Correspond(data);
     //correspond->moveToThread(correspondThread);
     ui->setupUi(this);
     setWindowTitle("服务器");

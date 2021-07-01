@@ -2,35 +2,60 @@
 
 Data::Data()
 {
+    initStudents();
+}
 
+QMap<QString, StudentInfo *> Data::getStudentTable() const
+{
+    return studentTable;
+}
+
+void Data::initStudents()
+{
+    for(int i = 1;i<=20;i++){
+        StudentInfo *st = new StudentInfo(QString::number(191000000 + i),"123456",QString::number(10000 + i));
+        //studentTable.insert(st->getId(),st);
+        studentTable.insert(st->getId(),st);
+    }
+}
+
+int StudentInfo::getState() const
+{
+    return state;
+}
+
+void StudentInfo::setState(int value)
+{
+    state = value;
+}
+
+StudentInfo::StudentInfo()
+{
+
+}
+
+StudentInfo::StudentInfo(QString id, QString password, QString name)
+{
+    this->id_len = id.toWCharArray(this->id);
+    this->pwd_len = password.toWCharArray(this->password);
+    this->name_len = name.toWCharArray(this->name);
 }
 
 QString StudentInfo::getId() const
 {
-    return id;
+    return QString::fromWCharArray(id);
 }
 
-void StudentInfo::setId(const QString &value)
-{
-    id = value;
-}
 
 QString StudentInfo::getName() const
 {
-    return name;
+    return QString::fromWCharArray(name);
 }
 
-void StudentInfo::setName(const QString &value)
-{
-    name = value;
-}
+
 
 QString StudentInfo::getPassword() const
 {
-    return password;
+    return QString::fromWCharArray(password);
 }
 
-void StudentInfo::setPassword(const QString &value)
-{
-    password = value;
-}

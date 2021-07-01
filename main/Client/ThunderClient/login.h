@@ -3,6 +3,10 @@
 
 #include <QMainWindow>
 #include "connectrequest.h"
+#include "studentview.h"
+#include "analyser.h"
+#include "config.h"
+#include "onlinedata.h"
 namespace Ui {
 class Login;
 }
@@ -25,6 +29,12 @@ private slots:
 private:
     Ui::Login *ui;
     ConnectRequest* connectRequest;
+    StudentView *studentView;
+    StudentInfo* student;
+    Analyser *analyser;
+
+    QTcpSocket* socket;
+    OnlineData* onlineData;
 };
 
 #endif // LOGIN_H

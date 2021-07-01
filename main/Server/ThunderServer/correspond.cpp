@@ -1,8 +1,14 @@
 #include "correspond.h"
 #include "mainwindow.h"
+#include "analysismsg.h"
+#include<QThreadPool>
 Correspond::Correspond()
 {
     //emit online_num(0);
+}
+
+Correspond::Correspond(Data *data){
+    this->data = data;
 }
 
 
@@ -23,9 +29,21 @@ void Correspond::startListen(QString ip, unsigned short port)
         //statuBa->setText("在线人数" + QString(sockets.size()));
         //检测是否可以接受数据
         connect(socket,&QTcpSocket::readyRead,this,[=](){
-            QByteArray data = socket->readAll();
+            QByteArray message = socket->readAll();
             //TODO:处理数据，传入这个socket和其他所有socket
+            qDebug()<<"recv:"+message;
             //多线程处理，注意线程互斥
+
+            AnalysisMsg *analyser = new AnalysisMsg(socket,message,data,sockets);
+            //analyser->analyse();
+            connect(analyser,&AnalysisMsg::send,this,[=](Prepare p){
+                qDebug()<<"messageToSend"<<p.messageToSend;
+                for(auto socket:p.socketsToSend){
+                    socket->write(p.messageToSend);
+                }
+            });
+            //没有测试过
+            QThreadPool::globalInstance()->start(analyser);//在运行
             //QByteArray backData = /
             //QTcpSocket backSocket =
             //TODO:回发数据

@@ -8,6 +8,7 @@ class ConnectRequest:public QObject,public QRunnable
     Q_OBJECT
 public:
     ConnectRequest();
+    ConnectRequest(QTcpSocket* socket);
     void run()override;
     void recvAddr(QString ip,unsigned short port);
     QTcpSocket* getSocket();

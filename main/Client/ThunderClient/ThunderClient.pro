@@ -25,20 +25,26 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+        analyser.cpp \
         clientmain.cpp \
         connectrequest.cpp \
         main.cpp \
         login.cpp \
         model/student.cpp \
-        studentview.cpp
+        onlinedata.cpp \
+        studentview.cpp \
+        util.cpp
 
 HEADERS += \
+        analyser.h \
         clientmain.h \
         config.h \
         connectrequest.h \
         login.h \
         model/student.h \
-        studentview.h
+        onlinedata.h \
+        studentview.h \
+        util.h
 
 FORMS += \
         login.ui \

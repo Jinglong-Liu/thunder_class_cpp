@@ -30,7 +30,9 @@ SOURCES += \
         data.cpp \
         main.cpp \
         mainwindow.cpp \
-        servermain.cpp
+        onlinedata.cpp \
+        servermain.cpp \
+        util.cpp
 
 HEADERS += \
         analysismsg.h \
@@ -38,7 +40,9 @@ HEADERS += \
         correspond.h \
         data.h \
         mainwindow.h \
-        servermain.h
+        onlinedata.h \
+        servermain.h \
+        util.h
 
 FORMS += \
         mainwindow.ui
