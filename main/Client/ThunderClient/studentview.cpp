@@ -28,3 +28,8 @@ void StudentView::displayStudentInfo(StudentInfo *info)
     ui->id->setText(info->getId());
     ui->name->setText(info->getName());
 }
+
+void StudentView::setOnlineNumber(int count)
+{
+    ui->onlineNum->setNum(count);
+}

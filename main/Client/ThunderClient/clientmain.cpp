@@ -14,13 +14,6 @@ ClientMain::ClientMain()
     sender = new MsgSender(socket);
     emit initLoginUi("127.0.0.1",7788);
 
-    /*
-     * emit to ui.
-    ui->ip->setText("127.0.0.1");
-    ui->port->setText("7788");
-    ui->id->setDisabled(true);
-    ui->password->setDisabled(true);
-    */
     connectRequest = new ConnectRequest(socket);
     //connect(login,&Login::requestForConnect,connectRequest,&ConnectRequest::recvAddr);
     connect(login,&Login::requestForConnect,this,&ClientMain::doConnectRequest);//request for connection.
@@ -28,9 +21,7 @@ ClientMain::ClientMain()
     connect(this,&ClientMain::initLoginUi,login,&Login::initView);
 
 
-    connect(analyser,&Analyser::newStudent,this,[=](){
-        qDebug()<<"新同学加入";
-    });
+    connect(analyser,&Analyser::newStudent,this,&ClientMain::addNewStudent);
     connect(analyser,&Analyser::studentLoginSucceed,this,&ClientMain::studentLoginSucceed);//
     connect(analyser,&Analyser::studentLoginFail,login,&Login::studentLoginFail);
     connect(analyser,&Analyser::studentLoginNotFound,login,&Login::studentLoginNotFound);
@@ -53,7 +44,7 @@ void ClientMain::addNewStudent(StudentInfo *info)
     login->studentLoginSucceed();
     //student ui
     studentView->addOnlineStudent(info);
-    studentView->updateOnlineData(onlineData);//更新信息(人数)
+    //studentView->updateOnlineData(count);//更新信息(人数)
 }
 
 void ClientMain::studentLoginSucceed(StudentInfo *info)
@@ -61,6 +52,7 @@ void ClientMain::studentLoginSucceed(StudentInfo *info)
     //client作为学生登录成功
     //ui
     login->studentLoginSucceed();
+    login->hide();
     //display this student's info in the ui.
     studentView->displayStudentInfo(info);
     studentView->show();
@@ -91,16 +83,6 @@ void ClientMain::doConnectRequest(QString ip, unsigned short port)
 
 void ClientMain::tryToRecvMsg(QTcpSocket *socket)
 {
-    /*
-    connect(socket,&QTcpSocket::readyRead,this,[=](){
-        QByteArray data = socket->readAll();
-        qDebug()<<"data:" + data;
-        analyser->setMessage(data);
-        analyser->analyse();
-        //TODO:处理不同类型的报文
-    });*/
-    //sender = new MsgSender(socket);
-    //receiver = new RecvMsg(socket);
     //receiver->run();//只可以单线运行...
     receiver->start();//这样貌似是可以的
 }

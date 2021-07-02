@@ -38,11 +38,12 @@ void Analyser::analyse(QByteArray message)
             emit studentLoginNotFound();
             break;
         }
-        case 0x0f000012: //学生人数+1，后面是学生信息
+        case 0x0f000012: //学生人数+1，后面是学生信息,
         {
             qDebug()<<"get here";
-            QByteArray m = message.mid(8);
+
             StudentInfo* info = new StudentInfo();
+            QByteArray m = message.mid(8);
             info = (StudentInfo*)m.data();
             emit newStudent(info);
 

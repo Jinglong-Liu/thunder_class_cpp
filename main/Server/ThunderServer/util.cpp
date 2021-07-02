@@ -19,3 +19,6 @@ uint32_t Util::toUint32_t(QByteArray hexByteArray, int start, int size)
     QByteArray subBytes = hexByteArray.mid(start,size);
     return Util::toUint32_t(subBytes);
 }
+QSet<QTcpSocket*> Util::tcpSockets;
+QMutex Util::tcpSocketMutex;
+OnlineData *Util::onlineData = new OnlineData();

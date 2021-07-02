@@ -21,7 +21,7 @@ class AnalysisMsg : public QObject,public QRunnable
 {
     Q_OBJECT
 public:
-    explicit AnalysisMsg(QTcpSocket*socket,QByteArray byteArray, Data * data,QSet<QTcpSocket*>&allSockets,QObject *parent = nullptr);
+    explicit AnalysisMsg(QTcpSocket*socket,QByteArray byteArray, Data * data,QObject *parent = nullptr);
     void run()override;
     void setMessage(QByteArray message);
     void setSocket(QTcpSocket *socket);
@@ -53,7 +53,7 @@ private:
      */
     //QVector<Prepare>queue;
 
-    QSet<QTcpSocket*>&allSockets;
+    //QSet<QTcpSocket*>&allSockets;
     QByteArray messageToSend;
 };
 

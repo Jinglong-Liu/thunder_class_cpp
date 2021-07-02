@@ -10,6 +10,7 @@ QMap<QString, StudentInfo *> Data::getStudentTable() const
     return studentTable;
 }
 
+
 void Data::initStudents()
 {
     for(int i = 1;i<=20;i++){

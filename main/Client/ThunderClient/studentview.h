@@ -21,6 +21,7 @@ public:
     void updateOnlineData(OnlineData* data);
 
     void displayStudentInfo(StudentInfo* info);
+    void setOnlineNumber(int count);
 private:
     //Student* student;
 };

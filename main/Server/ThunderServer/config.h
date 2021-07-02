@@ -31,7 +31,7 @@ constexpr int STUDENT_LOGIN_WRONG = 0X13;
  * 广播
  * 0x0f 00 00 10: 教师上线
  * 0x0f 00 00 11: 教师下线
- * 0x0f 00 00 12: 学生人数+1，后面是学生信息
+ * 0x0f 00 00 12: 学生人数+1，后面是学生信息 sizeof(studentInfo)
  * 0x0f 00 00 13: 学生人数-1，后面是学生信息
  */
 #endif // CONFIG_H

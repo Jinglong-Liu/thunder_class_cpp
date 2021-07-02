@@ -2,8 +2,8 @@
 #include <QMutex>
 #include<QThread>
 
-AnalysisMsg::AnalysisMsg(QTcpSocket *socket, QByteArray byteArray,Data *data,QSet<QTcpSocket*>&sockets,QObject *parent)
-    :allSockets(sockets)
+AnalysisMsg::AnalysisMsg(QTcpSocket *socket, QByteArray byteArray,Data *data,QObject *parent)
+
 {
     this->socket = socket;
     this->message = byteArray;
@@ -65,13 +65,19 @@ void AnalysisMsg::analyse()
             //然后广播到所有socket，告诉大家登录的在线学生+1,学生xx已上线
             //这样不能广播自己：注意进程同步,可以广播给其他所有人...
             Prepare p2;
-
-            p2.socketsToSend = allSockets;
+            //添加socket
+            //
+            Util::tcpSocketMutex.lock();
+            p2.socketsToSend = Util::tcpSockets;
             p2.messageToSend = Util::toHexByteArray(0x0f000012);
+            Util::onlineData->addNewStudent(info);
             p2.messageToSend.append((char*)info,sizeof(*info));
+
+            //人数变化
             //queue.push_back(p2);
             qDebug()<<"broadcast p2";
             emit send(p2);
+            Util::tcpSocketMutex.unlock();
 
         }
         else{
@@ -105,6 +111,10 @@ StudentInfo* AnalysisMsg::studentLoginRequest(QByteArray message)
     StudentInfo* info = data->getStudentTable().value(id);
     if(info->getPassword() == password){
         qDebug()<<"matched.";
+        if(info->state == 1){
+            //重复登录//TODO
+            return nullptr;
+        }
         info->setState(1);
     }
     return info;

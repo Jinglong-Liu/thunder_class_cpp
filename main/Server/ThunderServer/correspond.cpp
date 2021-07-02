@@ -1,6 +1,7 @@
 #include "correspond.h"
 #include "mainwindow.h"
 #include "analysismsg.h"
+#include"config.h"
 #include<QThreadPool>
 Correspond::Correspond()
 {
@@ -22,9 +23,13 @@ void Correspond::startListen(QString ip, unsigned short port)
     //
     connect(server,&QTcpServer::newConnection,this,[=](){
         QTcpSocket* socket = server->nextPendingConnection();
-        sockets.insert(socket);
-        qDebug()<<sockets.size();
-        emit online_num(sockets.size());
+        Util::tcpSocketMutex.lock();
+
+        Util::tcpSockets.insert(socket);
+        qDebug()<<Util::tcpSockets.size();
+        emit online_num(Util::tcpSockets.size());
+
+        Util::tcpSocketMutex.unlock();
         //m_status->setPixmap(QPixmap(":/img/ok.jpg").scaled(20,20));
         //statuBa->setText("在线人数" + QString(sockets.size()));
         //检测是否可以接受数据
@@ -34,7 +39,7 @@ void Correspond::startListen(QString ip, unsigned short port)
             qDebug()<<"recv:"+message;
             //多线程处理，注意线程互斥
 
-            AnalysisMsg *analyser = new AnalysisMsg(socket,message,data,sockets);
+            AnalysisMsg *analyser = new AnalysisMsg(socket,message,data);
             //analyser->analyse();
             connect(analyser,&AnalysisMsg::send,this,[=](Prepare p){
                 qDebug()<<"messageToSend"<<p.messageToSend;

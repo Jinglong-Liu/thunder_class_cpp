@@ -52,7 +52,6 @@ class Data
 public:
     Data();
     QMap<QString, StudentInfo *> getStudentTable() const;
-
 private:
     QMap<QString,StudentInfo*>studentTable;
     void initStudents();
