@@ -11,6 +11,7 @@ public:
     ConnectRequest(QTcpSocket* socket);
     void run()override;
     void recvAddr(QString ip,unsigned short port);
+    void doConnectRequest(QString ip,unsigned short port);
     QTcpSocket* getSocket();
 private:
     QString ip;

@@ -31,7 +31,9 @@ SOURCES += \
         main.cpp \
         login.cpp \
         model/student.cpp \
+        msgsender.cpp \
         onlinedata.cpp \
+        recvmsg.cpp \
         studentview.cpp \
         util.cpp
 
@@ -42,7 +44,9 @@ HEADERS += \
         connectrequest.h \
         login.h \
         model/student.h \
+        msgsender.h \
         onlinedata.h \
+        recvmsg.h \
         studentview.h \
         util.h
 

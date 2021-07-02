@@ -8,10 +8,10 @@ class Analyser:public QObject
     Q_OBJECT
 public:
     Analyser();
-    Analyser(QByteArray message);
-    void analyse();//TODO
-    QByteArray getMessage() const;
-    void setMessage(const QByteArray &value);
+    //Analyser(QByteArray message);
+    void analyse(QByteArray message);//TODO
+    //QByteArray getMessage() const;
+    //void setMessage(const QByteArray &value);
 
 signals:
     void studentLoginSucceed(StudentInfo* stuInfo);

@@ -14,3 +14,13 @@ void OnlineData::setOnlineNum(int value)
 {
     onlineNum = value;
 }
+
+void OnlineData::studentOffline(StudentInfo *info)
+{
+    onlineNum --;
+}
+
+void OnlineData::studentOnline(StudentInfo *info)
+{
+    onlineNum ++;
+}

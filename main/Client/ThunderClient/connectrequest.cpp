@@ -28,6 +28,11 @@ void ConnectRequest::recvAddr(QString ip, unsigned short port)
     this->port = port;
 }
 
+void ConnectRequest::doConnectRequest(QString ip, unsigned short port)
+{
+
+}
+
 QTcpSocket *ConnectRequest::getSocket()
 {
     return socket;
