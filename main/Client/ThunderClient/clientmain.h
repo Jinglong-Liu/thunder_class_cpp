@@ -29,6 +29,7 @@ private:
     //control
     ConnectRequest* connectRequest;
     Analyser *analyser;
+    //互斥资源socket
     QTcpSocket* socket;
     //thread
     RecvMsg* receiver;

@@ -3,6 +3,7 @@
 #include<QtCore>
 #include<QtGui>
 #include<QRunnable>
+#include<QThread>
 #include<QObject>
 #include<QTcpSocket>
 #include<QHostAddress>

@@ -2,7 +2,7 @@
 #define RECVMSG_H
 #include"config.h"
 
-class RecvMsg:public QObject,public QRunnable
+class RecvMsg:public QThread
 {
     Q_OBJECT
 public:

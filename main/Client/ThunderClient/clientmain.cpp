@@ -38,7 +38,7 @@ ClientMain::ClientMain()
     //发送
     connect(login,&Login::studentLoginRequest,sender,&MsgSender::sendStudentLoginRequest);//发送学生登录请求
     //接收
-    connect(receiver,&RecvMsg::recvMsg,analyser,&Analyser::analyse);
+    connect(receiver,&RecvMsg::recvMsg,analyser,&Analyser::analyse);//接收信息
 
     login->show();
 }
@@ -66,6 +66,8 @@ void ClientMain::studentLoginSucceed(StudentInfo *info)
     studentView->show();
     //data
     student = info;
+
+    addNewStudent(info);
 }
 
 void ClientMain::doConnectRequest(QString ip, unsigned short port)
@@ -99,7 +101,7 @@ void ClientMain::tryToRecvMsg(QTcpSocket *socket)
     });*/
     //sender = new MsgSender(socket);
     //receiver = new RecvMsg(socket);
-    //QThreadPool::globalInstance()->start(receiver);//这样无法接收信息
-    receiver->run();//只可以单线运行...
+    //receiver->run();//只可以单线运行...
+    receiver->start();//这样貌似是可以的
 }
 
