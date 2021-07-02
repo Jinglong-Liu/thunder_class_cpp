@@ -49,6 +49,12 @@ void Analyser::analyse(QByteArray message)
 
             break;
         }
+    case 0x0fff0001://人数
+    {
+        qDebug()<<"broadcast online num";
+
+        break;
+    }
         default:
             break;
     }

@@ -16,4 +16,8 @@ public:
     static QMutex tcpSocketMutex;
     static OnlineData *onlineData;
 };
+struct Prepare{
+    QSet<QTcpSocket*>socketsToSend;
+    QByteArray messageToSend;
+};
 #endif // TOOL_H

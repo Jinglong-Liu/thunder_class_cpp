@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "correspond.h"
 #include <QLabel>
+
 #include<QThreadPool>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -9,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     qRegisterMetaType<Prepare>("Prepare");
     data = new Data();//一份，注意线程同步
+
     onlineData = new OnlineData();
     //analyser = new AnalysisMsg();
     //correspondThread = new QThread();
@@ -25,6 +27,8 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->online_num->setNum(num);
         //在线人数变化
     });
+
+    //connect()
 
 }
 

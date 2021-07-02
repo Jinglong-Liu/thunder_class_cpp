@@ -20,6 +20,7 @@ signals:
     void teacherLoginSucceed(QString id,QString name);
     void newStudent(StudentInfo* info);//有新的学生登录
     void teacherLoginFail();
+    void UpdateonlineNumber(int num);
 private:
     QByteArray message;
     int head;

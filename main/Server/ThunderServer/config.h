@@ -13,6 +13,8 @@ constexpr int STUDENT_LOGIN_WRONG = 0X13;
  * @param parent
  *
  * @brief
+ * 报文头：8 + 8 = 16，分别表示类型和数据的长度(均以QByteArray计算)
+ * //4字节表示类型，4字节表示长度(不包含前16个01串)
  * 客户端发向服务器
  * 报文头部表面类型(4字节32位,相当于int)
  * 暂定
@@ -31,7 +33,14 @@ constexpr int STUDENT_LOGIN_WRONG = 0X13;
  * 广播
  * 0x0f 00 00 10: 教师上线
  * 0x0f 00 00 11: 教师下线
- * 0x0f 00 00 12: 学生人数+1，后面是学生信息 sizeof(studentInfo)
- * 0x0f 00 00 13: 学生人数-1，后面是学生信息
+ * 0x0f 00 00 12: 学生登录，后面是学生信息 sizeof(studentInfo)
+ * 0x0f 00 00 13: 学生退出，后面是学生信息
+ * 0x0f ff 00 01: 广播在线人数，后面是人数
  */
+class Packet{
+    int type;
+    int length;//data的长度
+    QByteArray data;//包含选项
+};
+
 #endif // CONFIG_H

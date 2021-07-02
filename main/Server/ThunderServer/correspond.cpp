@@ -15,7 +15,7 @@ Correspond::Correspond(Data *data){
 
 void Correspond::startListen(QString ip, unsigned short port)
 {
-
+    MsgSender* sender = new MsgSender();
     server = new QTcpServer();
 
     server->listen(QHostAddress(ip),port);
@@ -47,7 +47,8 @@ void Correspond::startListen(QString ip, unsigned short port)
                     socket->write(p.messageToSend);
                 }
             });
-            //没有测试过
+            connect(analyser,&AnalysisMsg::broadcastOnlineNumber,sender,&MsgSender::broadcastOnlineNum);//untested
+
             QThreadPool::globalInstance()->start(analyser);//在运行
             //QByteArray backData = /
             //QTcpSocket backSocket =

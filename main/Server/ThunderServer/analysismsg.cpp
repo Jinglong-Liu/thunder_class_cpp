@@ -73,11 +73,15 @@ void AnalysisMsg::analyse()
             Util::onlineData->addNewStudent(info);
             p2.messageToSend.append((char*)info,sizeof(*info));
 
-            //人数变化
+            //广播学生上线
             //queue.push_back(p2);
             qDebug()<<"broadcast p2";
             emit send(p2);
             Util::tcpSocketMutex.unlock();
+
+            //
+            //emit broadcastOnlineNumber(Util::onlineData->getOnlineStudentCount());//这里不对
+
 
         }
         else{

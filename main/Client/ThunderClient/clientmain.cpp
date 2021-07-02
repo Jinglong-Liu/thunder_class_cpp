@@ -30,7 +30,7 @@ ClientMain::ClientMain()
     connect(login,&Login::studentLoginRequest,sender,&MsgSender::sendStudentLoginRequest);//发送学生登录请求
     //接收
     connect(receiver,&RecvMsg::recvMsg,analyser,&Analyser::analyse);//接收信息
-
+    connect(analyser,&Analyser::UpdateonlineNumber,studentView,&StudentView::setOnlineNumber);//界面更改人数
     login->show();
 }
 

@@ -7,6 +7,7 @@
 #include"data.h"
 #include "onlinedata.h"
 #include "analysismsg.h"
+#include "msgsender.h"
 namespace Ui {
 class MainWindow;
 }

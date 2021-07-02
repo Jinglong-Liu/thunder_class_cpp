@@ -13,10 +13,7 @@
  * 2、发给所有socket：聊天，发布测试题
  * 3、发给指定socket：发给教师或满足一定条件的学生：教师学生可以用id区分，信息保存在服务端
  */
-struct Prepare{
-    QSet<QTcpSocket*>socketsToSend;
-    QByteArray messageToSend;
-};
+
 class AnalysisMsg : public QObject,public QRunnable
 {
     Q_OBJECT
@@ -35,6 +32,7 @@ public:
 
 signals:
     void send(Prepare);
+    void broadcastOnlineNumber(int num);
 public slots:
 private:
     QByteArray message;
