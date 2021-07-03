@@ -30,12 +30,14 @@ void AnalysisMsg::setSocket(QTcpSocket* socket)
 int AnalysisMsg::getHead()
 {
     //socket->read((char*)head,4);
-    head = (int)(Util::toUint32_t(message,0,8));
+    //head = (int)(Util::toUint32_t(message,0,8));
     return head;
 }
-
+void AnalysisMsg::analyse(){}
+/*
 void AnalysisMsg::analyse()
 {
+
     int head = getHead();
     qDebug()<<"head==" + QString::number(head);
     if(head == 0x12){
@@ -47,8 +49,8 @@ void AnalysisMsg::analyse()
         //socket = old socket
         if(info == nullptr){
             Prepare notFound;
-            notFound.socketsToSend.insert(socket);//发给自己即可
-            notFound.messageToSend = Util::toHexByteArray(0x14);//用户名不存在
+            //notFound.socketsToSend.insert(socket);//发给自己即可
+            //notFound.messageToSend = Util::toHexByteArray(0x14);//用户名不存在
             //queue.push_back(prepare);
             emit send(notFound);
         }
@@ -56,7 +58,7 @@ void AnalysisMsg::analyse()
 
             Prepare p1;
             p1.socketsToSend.insert(socket);//先发给自己成功登录
-            p1.messageToSend = Util::toHexByteArray(0x12);
+            //p1.messageToSend = Util::toHexByteArray(0x12);
             p1.messageToSend.append((char*)info,sizeof(*info));//传一个info
             qDebug()<<"send back p1";
             //queue.push_back(p1);
@@ -69,7 +71,7 @@ void AnalysisMsg::analyse()
             //
             Util::tcpSocketMutex.lock();
             p2.socketsToSend = Util::tcpSockets;
-            p2.messageToSend = Util::toHexByteArray(0x0f000012);
+            //p2.messageToSend = Util::toHexByteArray(0x0f000012);
             Util::onlineData->addNewStudent(info);
             p2.messageToSend.append((char*)info,sizeof(*info));
 
@@ -95,7 +97,7 @@ void AnalysisMsg::analyse()
         }
     }
 }
-
+*/
 StudentInfo* AnalysisMsg::studentLoginRequest(QByteArray message)
 {
 
@@ -108,11 +110,11 @@ StudentInfo* AnalysisMsg::studentLoginRequest(QByteArray message)
     qDebug()<<"id:" + id;
     qDebug()<<"password:" + password;
     //ok.
-    if(!data->getStudentTable().contains(id)){
+    if(!data->getStudents()->contains(id)){
         qDebug()<<"can't match id";
         return nullptr;
     }
-    StudentInfo* info = data->getStudentTable().value(id);
+    StudentInfo* info = data->getStudents()->value(id);
     if(info->getPassword() == password){
         qDebug()<<"matched.";
         if(info->state == 1){

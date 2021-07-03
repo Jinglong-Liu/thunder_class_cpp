@@ -8,7 +8,11 @@ RecvMsg::RecvMsg(QTcpSocket *socket)
 void RecvMsg::run()
 {
     connect(tcpsocket,&QTcpSocket::readyRead,this,[=](){
-        QByteArray message = tcpsocket->readAll();
-        emit recvMsg(message);
+        //QByteArray message = tcpsocket->readAll();
+
+        Util::tcpSocketMutex.lock();
+        Message message;
+
+        Util::tcpSocketMutex.unlock();
     });
 }

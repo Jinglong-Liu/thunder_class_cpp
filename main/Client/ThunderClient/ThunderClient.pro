@@ -31,6 +31,8 @@ SOURCES += \
         main.cpp \
         login.cpp \
         model/student.cpp \
+        msganalyser.cpp \
+        msgreceiver.cpp \
         msgsender.cpp \
         onlinedata.cpp \
         recvmsg.cpp \
@@ -44,6 +46,8 @@ HEADERS += \
         connectrequest.h \
         login.h \
         model/student.h \
+        msganalyser.h \
+        msgreceiver.h \
         msgsender.h \
         onlinedata.h \
         recvmsg.h \

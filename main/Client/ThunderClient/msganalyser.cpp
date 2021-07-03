@@ -1,52 +1,46 @@
-#include "analyser.h"
+#include "msganalyser.h"
 
-Analyser::Analyser()
-{
-
-}
-/*
-Analyser::Analyser(QByteArray message)
+MsgAnalyser::MsgAnalyser(Message message,QObject *parent) : QThread(parent)
 {
     this->message = message;
-    this->head = Util::toUint32_t(message,0,8);
 }
-
-void Analyser::analyse(Message message)
+void MsgAnalyser::analyse()
 {
     qDebug()<<"analyse..";
-    int type =
-    qDebug()<<"head == " + QString::number(head,16);
-    switch (this->head) {
+    Header head = message.getHeader();
+    QByteArray data = message.getData();
+    qDebug()<<"type == " + QString::number(head.getType(),16);
+    switch (head.getType()) {
         case 0x12:{
             //学生登录成功,接下来是一个info
             StudentInfo* info = new StudentInfo();
             //socket->read((char*)info,sizeof(*info));
-            QByteArray m = message.mid(8);
-            info = (StudentInfo*)m.data();
+
+            info = (StudentInfo*)message.getData().data();
             qDebug()<<info->getId();
             qDebug()<<info->getName();
             qDebug()<<info->getPassword();
-            emit studentLoginSucceed(info);
+            emit studentLoginSuccess(info);
             break;
         }
         case 0x13:{
             //密码错误
-            emit studentLoginFail();
+            //emit studentLoginFail();
             break;
         }
         case 0x14:{
-            emit studentLoginNotFound();
+            //emit studentLoginNotFound();
             break;
         }
         case 0x0f000012: //学生人数+1，后面是学生信息,
         {
             qDebug()<<"get here";
-
+/*
             StudentInfo* info = new StudentInfo();
             QByteArray m = message.mid(8);
             info = (StudentInfo*)m.data();
             emit newStudent(info);
-
+*/
             break;
         }
     case 0x0fff0001://人数
@@ -59,14 +53,6 @@ void Analyser::analyse(Message message)
             break;
     }
 }
+void MsgAnalyser::run(){
 
-QByteArray Analyser::getMessage() const
-{
-    return message;
 }
-
-void Analyser::setMessage(const QByteArray &value)
-{
-    message = value;
-    this->head = Util::toUint32_t(message,0,8);
-}*/

@@ -3,6 +3,7 @@
 
 #endif // CONFIG_H
 #include"util.h"
+#include"./model/student.h"
 /**
  * @brief
  * 客户端发向服务器

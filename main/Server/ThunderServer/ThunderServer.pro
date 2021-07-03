@@ -28,8 +28,11 @@ SOURCES += \
         analysismsg.cpp \
         correspond.cpp \
         data.cpp \
+        datahandler.cpp \
         main.cpp \
         mainwindow.cpp \
+        msganalyser.cpp \
+        msgrecevier.cpp \
         msgsender.cpp \
         onlinedata.cpp \
         servermain.cpp \
@@ -40,7 +43,10 @@ HEADERS += \
         config.h \
         correspond.h \
         data.h \
+        datahandler.h \
         mainwindow.h \
+        msganalyser.h \
+        msgrecevier.h \
         msgsender.h \
         onlinedata.h \
         servermain.h \

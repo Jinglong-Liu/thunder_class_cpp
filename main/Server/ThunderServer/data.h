@@ -2,7 +2,7 @@
 #define DATA_H
 #include<QtCore>
 #include<QMap>
-
+#include<QTcpSocket>
 struct StudentInfo{
     //定长数据容易传输
     //QString id;
@@ -50,11 +50,36 @@ public:
 class Data
 {
 public:
-    Data();
-    QMap<QString, StudentInfo *> getStudentTable() const;
-private:
-    QMap<QString,StudentInfo*>studentTable;
-    void initStudents();
-};
+    static Data* getInstance(){
+        return dataInstance;
+    }
+    static void release(){
+        if(dataInstance != nullptr){
+            delete dataInstance;
+            dataInstance = nullptr;
+        }
+    }
+    QMap<QString, StudentInfo *>* getStudents() const;
 
+
+
+    QMap<QTcpSocket *, StudentInfo *> *getOnlineStudents() const;
+
+private:
+    static Data *dataInstance;
+
+    QMap<QString,StudentInfo*>*students;
+    void initStudents();
+
+
+    //QSet<QString>onlineStudentId;
+    QMap<QTcpSocket*,StudentInfo*>*onlineStudents;
+    //QSet<QTcpSocket*>*studentSockets;
+    QTcpSocket*teacherSocket;
+
+private:
+    Data(const Data&);
+    //Data& operator=(const Data&);//
+    Data();
+};
 #endif // DATA_H

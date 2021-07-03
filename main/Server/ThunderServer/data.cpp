@@ -1,23 +1,34 @@
 #include "data.h"
-
-Data::Data()
-{
-    initStudents();
-}
-
-QMap<QString, StudentInfo *> Data::getStudentTable() const
-{
-    return studentTable;
-}
-
+Data *Data::dataInstance = new Data();
 
 void Data::initStudents()
 {
+
     for(int i = 1;i<=20;i++){
         StudentInfo *st = new StudentInfo(QString::number(191000000 + i),"123456",QString::number(10000 + i));
         //studentTable.insert(st->getId(),st);
-        studentTable.insert(st->getId(),st);
+        students->insert(st->getId(),st);
     }
+}
+
+QMap<QTcpSocket *, StudentInfo *> *Data::getOnlineStudents() const
+{
+    return onlineStudents;
+}
+
+
+Data::Data()
+{
+    students = new QMap<QString,StudentInfo*>();
+    onlineStudents = new QMap<QTcpSocket*,StudentInfo*>();
+    teacherSocket = new QTcpSocket();
+    initStudents();
+}
+
+
+QMap<QString, StudentInfo *>* Data::getStudents() const
+{
+    return students;
 }
 
 int StudentInfo::getState() const
@@ -52,8 +63,6 @@ QString StudentInfo::getName() const
 {
     return QString::fromWCharArray(name);
 }
-
-
 
 QString StudentInfo::getPassword() const
 {

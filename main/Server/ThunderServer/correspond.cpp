@@ -1,15 +1,13 @@
 #include "correspond.h"
 #include "mainwindow.h"
 #include "analysismsg.h"
+#include "msgrecevier.h"
 #include"config.h"
 #include<QThreadPool>
-Correspond::Correspond()
-{
-    //emit online_num(0);
-}
 
-Correspond::Correspond(Data *data){
-    this->data = data;
+
+Correspond::Correspond(){
+    this->data = Data::getInstance();
 }
 
 
@@ -34,6 +32,14 @@ void Correspond::startListen(QString ip, unsigned short port)
         //statuBa->setText("在线人数" + QString(sockets.size()));
         //检测是否可以接受数据
         connect(socket,&QTcpSocket::readyRead,this,[=](){
+            //
+            MsgRecevier* receiver = new MsgRecevier(socket);
+            receiver->start();
+           // receiver->deleteLater();
+
+            ///
+            /// \brief message
+/*
             QByteArray message = socket->readAll();
             //TODO:处理数据，传入这个socket和其他所有socket
             qDebug()<<"recv:"+message;
@@ -53,12 +59,13 @@ void Correspond::startListen(QString ip, unsigned short port)
             //QByteArray backData = /
             //QTcpSocket backSocket =
             //TODO:回发数据
-            //ui->record->append("client say:" + data);
+            //ui->record->append("client say:" + data);*/
         });
 
         connect(socket,&QTcpSocket::disconnected,this,[=](){
             socket->close();
             sockets.remove(socket);
+            //Data::getInstance()->getStudentSockets()->remove(socket);
             socket->deleteLater();
             emit online_num(sockets.size());
         });

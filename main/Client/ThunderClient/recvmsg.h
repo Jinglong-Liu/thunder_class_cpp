@@ -9,7 +9,7 @@ public:
     RecvMsg(QTcpSocket *socket);
     void run()override;
 signals:
-    void recvMsg(QByteArray message);
+    //void recvMsg(QByteArray message);
 private:
     QTcpSocket *tcpsocket;
 };
