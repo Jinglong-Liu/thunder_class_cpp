@@ -1,7 +1,8 @@
 #include "data.h"
-
+Data* Data::data = new Data();
 Data::Data()
 {
+
     initStudents();
 }
 
@@ -22,12 +23,23 @@ void Data::initStudents()
 
 int StudentInfo::getState() const
 {
-    return state;
+    return 0;
+    //return state;
 }
 
 void StudentInfo::setState(int value)
 {
-    state = value;
+    //state = value;
+}
+
+QTcpSocket *StudentInfo::getSocket() const
+{
+    return socket;
+}
+
+void StudentInfo::setSocket(QTcpSocket *value)
+{
+    socket = value;
 }
 
 StudentInfo::StudentInfo()

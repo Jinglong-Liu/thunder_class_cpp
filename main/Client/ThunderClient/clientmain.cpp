@@ -1,5 +1,7 @@
 #include "clientmain.h"
 #include"config.h"
+#include"message.h"
+#include"messagesender.h"
 #include<QtCore>
 ClientMain::ClientMain()
 {
@@ -11,7 +13,8 @@ ClientMain::ClientMain()
 
     analyser = new Analyser();
     receiver = new RecvMsg(socket);
-    sender = new MsgSender(socket);
+    //sender = new MsgSender(socket);
+    MessageSender* sender = new MessageSender(socket);
     emit initLoginUi("127.0.0.1",7788);
 
     connectRequest = new ConnectRequest(socket);
@@ -27,7 +30,8 @@ ClientMain::ClientMain()
     connect(analyser,&Analyser::studentLoginNotFound,login,&Login::studentLoginNotFound);
 
     //发送
-    connect(login,&Login::studentLoginRequest,sender,&MsgSender::sendStudentLoginRequest);//发送学生登录请求
+    //connect(login,&Login::studentLoginRequest,sender,&MsgSender::sendStudentLoginRequest);//发送学生登录请求
+    connect(login,&Login::studentLoginRequest,sender,&MessageSender::sendStudentLoginRequest);//发送学生登录请求
     //接收
     connect(receiver,&RecvMsg::recvMsg,analyser,&Analyser::analyse);//接收信息
     connect(analyser,&Analyser::UpdateonlineNumber,studentView,&StudentView::setOnlineNumber);//界面更改人数

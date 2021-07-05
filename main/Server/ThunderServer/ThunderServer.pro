@@ -30,6 +30,8 @@ SOURCES += \
         data.cpp \
         main.cpp \
         mainwindow.cpp \
+        message.cpp \
+        messageanalyser.cpp \
         msgsender.cpp \
         onlinedata.cpp \
         servermain.cpp \
@@ -41,6 +43,8 @@ HEADERS += \
         correspond.h \
         data.h \
         mainwindow.h \
+        message.h \
+        messageanalyser.h \
         msgsender.h \
         onlinedata.h \
         servermain.h \

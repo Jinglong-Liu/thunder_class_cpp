@@ -2,24 +2,22 @@
 #define DATA_H
 #include<QtCore>
 #include<QMap>
-
+#include"config.h"
 struct StudentInfo{
     //定长数据容易传输
-    //QString id;
-    //QString password;
-    //QString name;
     wchar_t id[20] = {'\0'};
     wchar_t password[20] = {'\0'};
     wchar_t name[20] = {'\0'};
     int id_len;
     int pwd_len;
     int name_len;
-    int state;//0不在线，1在线
-    //sizeof() =  132
+    QTcpSocket *socket = nullptr;
 public:
     StudentInfo();
     StudentInfo(QString id,QString password,QString name);
-
+    bool operator== (StudentInfo& info){
+        return this->getId() == info.getId();
+    }
     QString getId() const;
     //void setId(const QString &value);
     QString getPassword() const;
@@ -28,6 +26,8 @@ public:
     //void setName(const QString &value);
     int getState() const;
     void setState(int value);
+    QTcpSocket *getSocket() const;
+    void setSocket(QTcpSocket *value);
 };
 struct TeacherInfo{
     QString id;
@@ -38,23 +38,24 @@ public:
     QString getId() const;
     void setId(const QString &value);
 };
-class Course{
-private:
-    QString courseName;
-    QHash<QString,TeacherInfo*>teachers;
-    QMap<QString,StudentInfo*>students;
-public:
-
-};
 
 class Data
 {
 public:
-    Data();
+    static Data* instance(){
+        return data;
+    }
     QMap<QString, StudentInfo *> getStudentTable() const;
 private:
+    Data();
     QMap<QString,StudentInfo*>studentTable;
+    QMutex studentTableMutex;
+    QMap<StudentInfo,QTcpSocket*>studentSockets;
+    QMutex studentSocketsMutex;
+
     void initStudents();
+    static Data* data;
+
 };
 
 #endif // DATA_H

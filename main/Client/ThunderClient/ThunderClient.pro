@@ -30,6 +30,9 @@ SOURCES += \
         connectrequest.cpp \
         main.cpp \
         login.cpp \
+        message.cpp \
+        messageanalyser.cpp \
+        messagesender.cpp \
         model/student.cpp \
         msgsender.cpp \
         onlinedata.cpp \
@@ -43,6 +46,9 @@ HEADERS += \
         config.h \
         connectrequest.h \
         login.h \
+        message.h \
+        messageanalyser.h \
+        messagesender.h \
         model/student.h \
         msgsender.h \
         onlinedata.h \

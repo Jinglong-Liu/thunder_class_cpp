@@ -5,7 +5,6 @@
 #include<QtCore>
 #include<QTcpSocket>
 #include<QMutex>
-#include "onlinedata.h"
 //18 = 0x12(4字节) ->"00 00 00 12"->
 class Util{
 public:
@@ -14,7 +13,7 @@ public:
     static uint32_t toUint32_t(QByteArray hexByteArray,int start,int size);
     static QSet<QTcpSocket*>tcpSockets;
     static QMutex tcpSocketMutex;
-    static OnlineData *onlineData;
+    //static OnlineData *onlineData;
 };
 struct Prepare{
     QSet<QTcpSocket*>socketsToSend;

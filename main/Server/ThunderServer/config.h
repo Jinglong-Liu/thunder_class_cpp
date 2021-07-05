@@ -37,10 +37,6 @@ constexpr int STUDENT_LOGIN_WRONG = 0X13;
  * 0x0f 00 00 13: 学生退出，后面是学生信息
  * 0x0f ff 00 01: 广播在线人数，后面是人数
  */
-class Packet{
-    int type;
-    int length;//data的长度
-    QByteArray data;//包含选项
-};
+
 
 #endif // CONFIG_H

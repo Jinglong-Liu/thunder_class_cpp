@@ -3,6 +3,7 @@
 #include "analysismsg.h"
 #include"config.h"
 #include<QThreadPool>
+#include"messageanalyser.h"
 Correspond::Correspond()
 {
     //emit online_num(0);
@@ -37,23 +38,10 @@ void Correspond::startListen(QString ip, unsigned short port)
             QByteArray message = socket->readAll();
             //TODO:处理数据，传入这个socket和其他所有socket
             qDebug()<<"recv:"+message;
-            //多线程处理，注意线程互斥
+            Message m(message);
 
-            AnalysisMsg *analyser = new AnalysisMsg(socket,message,data);
-            //analyser->analyse();
-            connect(analyser,&AnalysisMsg::send,this,[=](Prepare p){
-                qDebug()<<"messageToSend"<<p.messageToSend;
-                for(auto socket:p.socketsToSend){
-                    socket->write(p.messageToSend);
-                }
-            });
-            connect(analyser,&AnalysisMsg::broadcastOnlineNumber,sender,&MsgSender::broadcastOnlineNum);//untested
-
-            QThreadPool::globalInstance()->start(analyser);//在运行
-            //QByteArray backData = /
-            //QTcpSocket backSocket =
-            //TODO:回发数据
-            //ui->record->append("client say:" + data);
+            MessageAnalyser *a = new MessageAnalyser(m);
+            QThreadPool::globalInstance()->start(a);
         });
 
         connect(socket,&QTcpSocket::disconnected,this,[=](){

@@ -1,12 +1,14 @@
 #include "login.h"
 #include "ui_login.h"
 #include<QMessageBox>
+#include"messagesender.h"
 Login::Login(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Login)
 {
     ui->setupUi(this);
     initView("127.0.0.1",7788);
+    //socket = new QTcpSocket();
     /*
     onlineData = new OnlineData();
     student = new StudentInfo();
@@ -100,38 +102,6 @@ void Login::on_connectBtn_clicked()
     QString ip = ui->ip->text();
     unsigned short port = ui->port->text().toUShort();
     emit requestForConnect(ip,port);
-/*
-    socket->connectToHost(QHostAddress(ip),port);//尝试连接
-    ui->connectBtn->setDisabled(true);
-    if(socket->waitForConnected(1000)){
-        qDebug()<<"连接成功";
-        ui->connectBtn->setDisabled(true);
-        ui->connectBtn->setText("连接成功");
-        ui->ip->setDisabled(true);
-        ui->port->setDisabled(true);
-        ui->id->setEnabled(true);
-        ui->password->setEnabled(true);
-        QMessageBox::information(nullptr,"提示","连接成功");
-        //QThreadPool::globalInstance()->start(connectRequest);
-        //
-        connect(socket,&QTcpSocket::readyRead,this,[=](){
-            QByteArray data = socket->readAll();
-            qDebug()<<"data:" + data;
-            analyser->setMessage(data);
-            analyser->analyse();
-            //TODO:处理不同类型的报文
-        });
-        //
-    }
-    else {
-        qDebug()<<"连接失败";
-        QMessageBox::information(nullptr,"提示","连接失败");
-        ui->connectBtn->setText("尝试重连");
-        ui->connectBtn->setEnabled(true);
-    }
-
-    //connectRequest->run();
-*/
 }
 
 void Login::on_loginStudentBtn_clicked()
@@ -142,6 +112,9 @@ void Login::on_loginStudentBtn_clicked()
     QString id = ui->id->text();
     QString password = ui->password->text();
     emit studentLoginRequest(id,password);
+
+    //MessageSender sender(socket);
+    //sender.sendStudentLoginRequest(id,password);
     /*
     //向服务器发送请求
     //学生登录请求报文：0x12 + id_len + id + password

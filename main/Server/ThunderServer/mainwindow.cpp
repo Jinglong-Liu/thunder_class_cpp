@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     qRegisterMetaType<Prepare>("Prepare");
-    data = new Data();//一份，注意线程同步
+    data = Data::instance();//一份，注意线程同步
 
     onlineData = new OnlineData();
     //analyser = new AnalysisMsg();

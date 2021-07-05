@@ -21,4 +21,3 @@ uint32_t Util::toUint32_t(QByteArray hexByteArray, int start, int size)
 }
 QSet<QTcpSocket*> Util::tcpSockets;
 QMutex Util::tcpSocketMutex;
-OnlineData *Util::onlineData = new OnlineData();

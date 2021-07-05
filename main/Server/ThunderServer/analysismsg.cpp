@@ -13,7 +13,7 @@ AnalysisMsg::AnalysisMsg(QTcpSocket *socket, QByteArray byteArray,Data *data,QOb
 void AnalysisMsg::run()
 {
     //analyse different type of msg
-    analyse();
+    //analyse();
 }
 
 void AnalysisMsg::setMessage(QByteArray message)
@@ -33,7 +33,7 @@ int AnalysisMsg::getHead()
     head = (int)(Util::toUint32_t(message,0,8));
     return head;
 }
-
+/*
 void AnalysisMsg::analyse()
 {
     int head = getHead();
@@ -70,7 +70,7 @@ void AnalysisMsg::analyse()
             Util::tcpSocketMutex.lock();
             p2.socketsToSend = Util::tcpSockets;
             p2.messageToSend = Util::toHexByteArray(0x0f000012);
-            Util::onlineData->addNewStudent(info);
+            //Util::onlineData->addNewStudent(info);
             p2.messageToSend.append((char*)info,sizeof(*info));
 
             //广播学生上线
@@ -95,7 +95,7 @@ void AnalysisMsg::analyse()
         }
     }
 }
-
+*/
 StudentInfo* AnalysisMsg::studentLoginRequest(QByteArray message)
 {
 
@@ -115,10 +115,10 @@ StudentInfo* AnalysisMsg::studentLoginRequest(QByteArray message)
     StudentInfo* info = data->getStudentTable().value(id);
     if(info->getPassword() == password){
         qDebug()<<"matched.";
-        if(info->state == 1){
+        //if(info->state == 1){
             //重复登录//TODO
             return nullptr;
-        }
+        //}
         info->setState(1);
     }
     return info;
