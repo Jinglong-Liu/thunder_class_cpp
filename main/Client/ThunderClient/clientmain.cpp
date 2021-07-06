@@ -27,7 +27,7 @@ ClientMain::ClientMain()
     connect(receiver,&RecvMsg::recvMsg,analyser,&MessageAnalyser::analyser);
     connect(analyser,&MessageAnalyser::studentLoginSuccessFul,loginViewHandler,&LoginViewHandler::loginSuccessful);
     connect(analyser,&MessageAnalyser::studentLoginSuccessFul,studentViewHandler,&StudentViewHandler::handleStudentLoginSuccessful);
-
+    connect(analyser,&MessageAnalyser::LoginError,loginViewHandler,&LoginViewHandler::loginError);
 
 
     emit initLoginUi("127.0.0.1",7788);

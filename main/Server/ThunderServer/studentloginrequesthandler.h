@@ -48,13 +48,19 @@ public:
         handler->addOnlineStudent(socket,id);
     }
     void sendStudentLoginIdNotFound(QTcpSocket*socket,QString id){
-
+        Header header(ERROR_STUDENT_LOGIN_ERR::ID_NOTFOUND_ERR);
+        Message m(header);
+        socket->write(m.toByteArray());
     }
     void sendStudentLoginPasswordError(QTcpSocket*socket,QString id){
-
+        Header header(ERROR_STUDENT_LOGIN_ERR::PASSWORD_ERR);
+        Message m(header);
+        socket->write(m.toByteArray());
     }
     void sendStudentLoginRepeatedly(QTcpSocket*socket,QString id){
-
+        Header header(ERROR_STUDENT_LOGIN_ERR::LOGIN_REPEATEDLY_ERR);
+        Message m(header);
+        socket->write(m.toByteArray());
     }
 signals:
 

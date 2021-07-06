@@ -28,6 +28,7 @@ SOURCES += \
         analyser.cpp \
         clientmain.cpp \
         connectrequest.cpp \
+        error.cpp \
         loginviewhandler.cpp \
         main.cpp \
         login.cpp \
@@ -47,6 +48,7 @@ HEADERS += \
         clientmain.h \
         config.h \
         connectrequest.h \
+        error.h \
         login.h \
         loginviewhandler.h \
         message.h \

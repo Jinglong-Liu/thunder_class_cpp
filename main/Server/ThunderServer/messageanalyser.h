@@ -12,7 +12,7 @@ class MessageAnalyser: public QObject,public QRunnable
 public:
     explicit MessageAnalyser(Message message,QTcpSocket *socket,QObject *parent = nullptr);
     void analyse(){
-        short type = message.getHeader().getType();
+        int type = message.getHeader().getType();
         switch(type){
         case 0x12:{
             handleStudentLoginRequest(message);

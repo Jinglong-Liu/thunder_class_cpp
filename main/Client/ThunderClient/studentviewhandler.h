@@ -11,11 +11,8 @@ class StudentViewHandler : public QObject
     Q_OBJECT
 public:
     explicit StudentViewHandler(StudentView *view,QObject *parent = nullptr);
-    void handleStudentLoginSuccessful(StudentInfo *info){
-        view->displayStudentInfo(info);
-        view->addOnlineStudent(info);
-        view->show();
-    }
+
+    void handleStudentLoginSuccessful(StudentInfo *info);
 signals:
 
 public slots:

@@ -4,3 +4,9 @@ StudentViewHandler::StudentViewHandler(StudentView *view,QObject *parent) : QObj
 {
     this->view = view;
 }
+
+void StudentViewHandler::handleStudentLoginSuccessful(StudentInfo *info){
+    view->displayStudentInfo(info);
+    view->addOnlineStudent(info);
+    view->show();
+}

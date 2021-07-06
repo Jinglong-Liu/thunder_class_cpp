@@ -13,3 +13,7 @@ void LoginViewHandler::setView(Login *value)
 {
     view = value;
 }
+
+void LoginViewHandler::loginSuccessful(StudentInfo *info){
+    view->studentLoginSucceed();
+}
