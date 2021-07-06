@@ -42,13 +42,16 @@ void Correspond::startListen(QString ip, unsigned short port)
             a->run();//单线程可以收发的
             //QThreadPool::globalInstance()->start(a);//可以接收，不可以发送...(子线程)
         });
-
+        //学生退出(暂时没有考虑老师)
         connect(socket,&QTcpSocket::disconnected,this,[=](){
             //TODO
             socket->close();
             sockets.remove(socket);
             socket->deleteLater();
-            emit online_num(sockets.size());
+            emit online_num(sockets.size());//这个不大对
+
+            DataHandler* handler = new DataHandler();
+            handler->setStudentOffline(socket);//ok.
         });
     });
 

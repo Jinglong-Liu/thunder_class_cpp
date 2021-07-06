@@ -73,6 +73,14 @@ public:
             }
         }
     }
+    void setStudentOffline(QTcpSocket *socket){
+        for(auto &info:studentTable.values()){
+            if(socket == info->socket){
+                info->setSocket(nullptr);
+                qDebug()<<"a student off line";
+            }
+        }
+    }
     int getOnlineStudentNumber()const{
         int count = 0;
         for(auto info:studentTable.values()){

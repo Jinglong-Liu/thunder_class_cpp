@@ -11,8 +11,8 @@ public:
     void addOnlineStudent(QTcpSocket*socket,QString id){
         Data::instance()->setStudentOnline(socket,id);
     }
-    void removeOnlineStudent(QTcpSocket*socket,StudentInfo*info){
-        Data::instance()->setStudentOffline(socket,info);
+    void setStudentOffline(QTcpSocket *socket){
+        Data::instance()->setStudentOffline(socket);
     }
 
 signals:
