@@ -29,6 +29,7 @@ SOURCES += \
         correspond.cpp \
         data.cpp \
         datahandler.cpp \
+        error.cpp \
         main.cpp \
         mainwindow.cpp \
         message.cpp \
@@ -46,6 +47,7 @@ HEADERS += \
         correspond.h \
         data.h \
         datahandler.h \
+        error.h \
         mainwindow.h \
         message.h \
         messageanalyser.h \

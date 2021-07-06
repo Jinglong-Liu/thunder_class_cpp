@@ -2,13 +2,12 @@
 #define MESSAGE_H
 #include<QByteArray>
 struct Header{
-    short type;
-    short headSize;
+    int type;
+    int headSize;
     int dataSize;
-
 public:
     Header(){}
-    Header(short type){
+    Header(int type){
         this->type = type;
         this->headSize = sizeof(*this);
         this->dataSize = -1;
@@ -18,10 +17,10 @@ public:
                 +QByteArray((char*)&headSize,sizeof(headSize))
                 +QByteArray((char*)&dataSize,sizeof(dataSize));
     }
-    short getType() const;
-    void setType(short value);
-    short getHeadSize() const;
-    void setHeadSize(short value);
+    int getType() const;
+    void setType(int value);
+    int getHeadSize() const;
+    void setHeadSize(int value);
     int getDataSize() const;
     void setDataSize(int value);
 };

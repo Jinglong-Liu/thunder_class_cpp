@@ -11,13 +11,13 @@ public:
     explicit StudentLoginRequestHandler(QObject *parent = nullptr);
     void handle(QTcpSocket*socket,QString id,QString password){
         if(!Data::instance()->getStudentTable().keys().contains(id)){
-            qDebug()<<"check the id and try again!";
+            sendStudentLoginIdNotFound(socket,id);
         }
         else if(Data::instance()->getStudentTable().value(id)->getSocket()){
-            qDebug()<<"you have login... don't login again";
+            sendStudentLoginRepeatedly(socket,id);
         }
         else if(Data::instance()->getStudentTable().value(id)->getPassword()!=password){
-            qDebug()<<"password error";
+            sendStudentLoginPasswordError(socket,id);
         }
         else{
             //succeed
@@ -46,6 +46,15 @@ public:
 
         DataHandler* handler = new DataHandler();
         handler->addOnlineStudent(socket,id);
+    }
+    void sendStudentLoginIdNotFound(QTcpSocket*socket,QString id){
+
+    }
+    void sendStudentLoginPasswordError(QTcpSocket*socket,QString id){
+
+    }
+    void sendStudentLoginRepeatedly(QTcpSocket*socket,QString id){
+
     }
 signals:
 

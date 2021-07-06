@@ -5,7 +5,6 @@
 #include<QtCore>
 #include<QTcpSocket>
 #include<QMutex>
-//18 = 0x12(4字节) ->"00 00 00 12"->
 class Util{
 public:
     static QByteArray toHexByteArray(uint32_t num);

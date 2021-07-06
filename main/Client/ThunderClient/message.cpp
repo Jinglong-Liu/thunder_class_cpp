@@ -15,12 +15,14 @@ Message::Message()
 
 }
 
-short Header::getHeadSize() const
+
+
+int Header::getHeadSize() const
 {
     return headSize;
 }
 
-void Header::setHeadSize(short value)
+void Header::setHeadSize(int value)
 {
     headSize = value;
 }
@@ -35,12 +37,12 @@ void Header::setDataSize(int value)
     dataSize = value;
 }
 
-short Header::getType() const
+int Header::getType() const
 {
     return type;
 }
 
-void Header::setType(short value)
+void Header::setType(int value)
 {
     type = value;
 }
