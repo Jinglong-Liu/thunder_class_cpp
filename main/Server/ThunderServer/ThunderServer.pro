@@ -28,13 +28,16 @@ SOURCES += \
         analysismsg.cpp \
         correspond.cpp \
         data.cpp \
+        datahandler.cpp \
         main.cpp \
         mainwindow.cpp \
         message.cpp \
         messageanalyser.cpp \
+        messagesender.cpp \
         msgsender.cpp \
         onlinedata.cpp \
         servermain.cpp \
+        studentloginrequesthandler.cpp \
         util.cpp
 
 HEADERS += \
@@ -42,12 +45,15 @@ HEADERS += \
         config.h \
         correspond.h \
         data.h \
+        datahandler.h \
         mainwindow.h \
         message.h \
         messageanalyser.h \
+        messagesender.h \
         msgsender.h \
         onlinedata.h \
         servermain.h \
+        studentloginrequesthandler.h \
         util.h
 
 FORMS += \

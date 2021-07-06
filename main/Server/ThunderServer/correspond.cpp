@@ -20,12 +20,10 @@ void Correspond::startListen(QString ip, unsigned short port)
     server = new QTcpServer();
 
     server->listen(QHostAddress(ip),port);
-    //emit online_num(0);
     //
     connect(server,&QTcpServer::newConnection,this,[=](){
         QTcpSocket* socket = server->nextPendingConnection();
         Util::tcpSocketMutex.lock();
-
         Util::tcpSockets.insert(socket);
         qDebug()<<Util::tcpSockets.size();
         emit online_num(Util::tcpSockets.size());
@@ -40,11 +38,13 @@ void Correspond::startListen(QString ip, unsigned short port)
             qDebug()<<"recv:"+message;
             Message m(message);
 
-            MessageAnalyser *a = new MessageAnalyser(m);
-            QThreadPool::globalInstance()->start(a);
+            MessageAnalyser *a = new MessageAnalyser(m,socket);
+            a->run();//单线程可以收发的
+            //QThreadPool::globalInstance()->start(a);//可以接收，不可以发送...(子线程)
         });
 
         connect(socket,&QTcpSocket::disconnected,this,[=](){
+            //TODO
             socket->close();
             sockets.remove(socket);
             socket->deleteLater();

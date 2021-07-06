@@ -2,6 +2,7 @@
 #include "ui_login.h"
 #include<QMessageBox>
 #include"messagesender.h"
+//Login* Login::loginView = new Login();
 Login::Login(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Login)
@@ -62,6 +63,7 @@ void Login::studentLoginSucceed()
     this->ui->loginStudentBtn->setDisabled(true);
     ui->loginTeacherBtn->setDisabled(true);
     ui->loginStudentBtn->setText("学生登录成功");
+    this->hide();
 }
 
 void Login::studentLoginFail()

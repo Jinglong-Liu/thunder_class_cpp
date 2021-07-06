@@ -3,6 +3,8 @@
 #include "login.h"
 #include"recvmsg.h"
 #include"msgsender.h"
+#include"loginviewhandler.h"
+#include"studentviewhandler.h"
 class ClientMain:public QObject
 {
     Q_OBJECT
@@ -27,6 +29,9 @@ private:
     Login* login;
     StudentView *studentView;
     //control
+    LoginViewHandler* loginViewHandler;
+    StudentViewHandler* studentViewHandler;
+
     ConnectRequest* connectRequest;
     Analyser *analyser;
     //互斥资源socket

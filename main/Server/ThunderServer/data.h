@@ -11,7 +11,7 @@ struct StudentInfo{
     int id_len;
     int pwd_len;
     int name_len;
-    QTcpSocket *socket = nullptr;
+    QTcpSocket *socket = nullptr;//emmmmmmm
 public:
     StudentInfo();
     StudentInfo(QString id,QString password,QString name);
@@ -24,10 +24,12 @@ public:
     //void setPassword(const QString &value);
     QString getName() const;
     //void setName(const QString &value);
-    int getState() const;
-    void setState(int value);
     QTcpSocket *getSocket() const;
     void setSocket(QTcpSocket *value);
+    QByteArray toByteArray(){
+        QByteArray res((char*)this,sizeof(*this));
+        return res;
+    }
 };
 struct TeacherInfo{
     QString id;
@@ -46,11 +48,44 @@ public:
         return data;
     }
     QMap<QString, StudentInfo *> getStudentTable() const;
+    QList<QTcpSocket*> getStudentSockets(){
+        QList<QTcpSocket*>res;
+        studentSocketsMutex.lock();
+        for(auto info:studentTable.values()){
+            if(info->getSocket()!=nullptr){
+                res.push_back(info->getSocket());
+            }
+        }
+        studentSocketsMutex.unlock();
+        return res;
+    }
+    void setStudentOnline(QTcpSocket *socket,QString id){
+        for(QString _id:studentTable.keys()){
+            if(_id == id){
+                studentTable.value(_id)->setSocket(socket);
+            }
+        }
+    }
+    void setStudentOffline(QTcpSocket *socket,StudentInfo*info){
+        for(QString id:studentTable.keys()){
+            if(id == info->id){
+                studentTable.value(id)->setSocket(nullptr);
+            }
+        }
+    }
+    int getOnlineStudentNumber()const{
+        int count = 0;
+        for(auto info:studentTable.values()){
+            if(info->getSocket()!=nullptr){
+                count++;
+            }
+        }
+        return count;
+    }
 private:
     Data();
     QMap<QString,StudentInfo*>studentTable;
     QMutex studentTableMutex;
-    QMap<StudentInfo,QTcpSocket*>studentSockets;
     QMutex studentSocketsMutex;
 
     void initStudents();

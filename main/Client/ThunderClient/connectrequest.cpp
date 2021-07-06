@@ -16,10 +16,10 @@ void ConnectRequest::run()
 {
 
     //socket->connectToHost(QHostAddress(ip),port);
-    connect(socket,&QTcpSocket::readyRead,this,[=](){
-        QByteArray data = socket->readAll();
+    //connect(socket,&QTcpSocket::readyRead,this,[=](){
+    //    QByteArray data = socket->readAll();
         //TODO:处理不同类型的报文
-    });
+    //});
 }
 
 void ConnectRequest::recvAddr(QString ip, unsigned short port)

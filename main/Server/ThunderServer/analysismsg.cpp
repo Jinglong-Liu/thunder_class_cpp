@@ -119,7 +119,7 @@ StudentInfo* AnalysisMsg::studentLoginRequest(QByteArray message)
             //重复登录//TODO
             return nullptr;
         //}
-        info->setState(1);
+        //info->setState(1);
     }
     return info;
 }

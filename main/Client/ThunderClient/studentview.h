@@ -15,15 +15,16 @@ class StudentView : public QMainWindow
 public:
     explicit StudentView(QWidget *parent = nullptr);
     ~StudentView();
-    Ui::StudentView *ui;
-
     void addOnlineStudent(StudentInfo *info);
     void updateOnlineData(OnlineData* data);
 
     void displayStudentInfo(StudentInfo* info);
     void setOnlineNumber(int count);
 private:
+    Ui::StudentView *ui;
+
     //Student* student;
+
 };
 
 #endif // STUDENTVIEW_H

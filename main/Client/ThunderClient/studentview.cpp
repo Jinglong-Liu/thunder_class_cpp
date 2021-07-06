@@ -1,6 +1,7 @@
 #include "studentview.h"
 #include "ui_studentview.h"
 #include"config.h"
+//StudentView* StudentView::view = new StudentView();
 StudentView::StudentView(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::StudentView)

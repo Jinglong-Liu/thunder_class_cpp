@@ -16,20 +16,8 @@ void Data::initStudents()
 {
     for(int i = 1;i<=20;i++){
         StudentInfo *st = new StudentInfo(QString::number(191000000 + i),"123456",QString::number(10000 + i));
-        //studentTable.insert(st->getId(),st);
         studentTable.insert(st->getId(),st);
     }
-}
-
-int StudentInfo::getState() const
-{
-    return 0;
-    //return state;
-}
-
-void StudentInfo::setState(int value)
-{
-    //state = value;
 }
 
 QTcpSocket *StudentInfo::getSocket() const

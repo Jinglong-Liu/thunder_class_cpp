@@ -28,6 +28,7 @@ SOURCES += \
         analyser.cpp \
         clientmain.cpp \
         connectrequest.cpp \
+        loginviewhandler.cpp \
         main.cpp \
         login.cpp \
         message.cpp \
@@ -38,6 +39,7 @@ SOURCES += \
         onlinedata.cpp \
         recvmsg.cpp \
         studentview.cpp \
+        studentviewhandler.cpp \
         util.cpp
 
 HEADERS += \
@@ -46,6 +48,7 @@ HEADERS += \
         config.h \
         connectrequest.h \
         login.h \
+        loginviewhandler.h \
         message.h \
         messageanalyser.h \
         messagesender.h \
@@ -54,6 +57,7 @@ HEADERS += \
         onlinedata.h \
         recvmsg.h \
         studentview.h \
+        studentviewhandler.h \
         util.h
 
 FORMS += \
