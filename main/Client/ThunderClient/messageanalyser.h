@@ -39,6 +39,12 @@ public:
             emit LoginError(header.getType());
             break;
         }
+
+        case BROADCAST_TYPE::ADD_NEW_STUDENT:{
+            StudentInfo* info = new StudentInfo(data);
+            emit addNewStudent(info);
+            break;
+        }
         default:{
 
             break;
@@ -47,6 +53,7 @@ public:
     }
 signals:
     void studentLoginSuccessFul(StudentInfo *info = nullptr);
+    void addNewStudent(StudentInfo *info);
     void LoginError(int type);
 public slots:
 private:

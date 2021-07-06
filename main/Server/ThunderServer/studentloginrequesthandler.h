@@ -26,7 +26,11 @@ public:
             dataHandler->deleteLater();
 
             sendStudentLoginSuccessful(socket,id);
-
+            broadcastNewStudent(id);
+            //
+            DataHandler* handler = new DataHandler();
+            handler->addOnlineStudent(socket,id);
+            handler->deleteLater();
             //send and broadcast
         }
     }
@@ -37,30 +41,19 @@ public:
         QByteArray d = info->toByteArray();
         Message m(header,d);
         socket->write(m.toByteArray());
+    }
+    void sendStudentLoginIdNotFound(QTcpSocket*socket,QString id);
+    void sendStudentLoginPasswordError(QTcpSocket*socket,QString id);
+    void sendStudentLoginRepeatedly(QTcpSocket*socket,QString id);
 
-        Header h2(0x0f12);
-        Message m2(h2,info->toByteArray());
-        for(QTcpSocket* s:Data::instance()->getStudentSockets()){
-            socket->write(m2.toByteArray());
+    void broadcastNewStudent(QString id){
+        StudentInfo *info = Data::instance()->getStudentTable().value(id);
+        Header h(BROADCAST_TYPE::ADD_NEW_STUDENT);
+        Message message(h,info->toByteArray());
+        for(QTcpSocket* s:Data::instance()->getSocketsExcepted(id)){
+            qDebug()<<"emm";
+            s->write(message.toByteArray());
         }
-
-        DataHandler* handler = new DataHandler();
-        handler->addOnlineStudent(socket,id);
-    }
-    void sendStudentLoginIdNotFound(QTcpSocket*socket,QString id){
-        Header header(ERROR_STUDENT_LOGIN_ERR::ID_NOTFOUND_ERR);
-        Message m(header);
-        socket->write(m.toByteArray());
-    }
-    void sendStudentLoginPasswordError(QTcpSocket*socket,QString id){
-        Header header(ERROR_STUDENT_LOGIN_ERR::PASSWORD_ERR);
-        Message m(header);
-        socket->write(m.toByteArray());
-    }
-    void sendStudentLoginRepeatedly(QTcpSocket*socket,QString id){
-        Header header(ERROR_STUDENT_LOGIN_ERR::LOGIN_REPEATEDLY_ERR);
-        Message m(header);
-        socket->write(m.toByteArray());
     }
 signals:
 

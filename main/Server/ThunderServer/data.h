@@ -90,6 +90,18 @@ public:
         }
         return count;
     }
+    QList<QTcpSocket*> getSocketsExcepted(QString id){
+        QList<QTcpSocket*>ret;
+        for(auto _id:studentTable.keys()){
+            if(_id == id || studentTable.value(_id)->getSocket() == nullptr){
+                continue;
+            }
+            ret.append(studentTable.value(_id)->getSocket());
+        }
+        //teacher?
+        return ret;
+    }
+
 private:
     Data();
     QMap<QString,StudentInfo*>studentTable;

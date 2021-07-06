@@ -13,6 +13,9 @@ public:
     explicit StudentViewHandler(StudentView *view,QObject *parent = nullptr);
 
     void handleStudentLoginSuccessful(StudentInfo *info);
+    void handleAddNewStudent(StudentInfo *info){
+        view->addOnlineStudent(info);
+    }
 signals:
 
 public slots:
