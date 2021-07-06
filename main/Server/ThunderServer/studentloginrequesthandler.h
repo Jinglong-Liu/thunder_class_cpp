@@ -24,40 +24,68 @@ public:
             DataHandler* dataHandler = new DataHandler();
             dataHandler->addOnlineStudent(socket,id);
             dataHandler->deleteLater();
-
+            assert(Data::instance()->getStudentSockets().contains(socket));
             sendStudentLoginSuccessful(socket,id);
             broadcastNewStudent(id);
-            //
-            DataHandler* handler = new DataHandler();
-            handler->addOnlineStudent(socket,id);
-            handler->deleteLater();
-            //send and broadcast
+            broadcaseOnlineNumber(Data::instance()->getOnlineNums());
+
+            qDebug()<<Data::instance()->getStudentSockets().size();
         }
     }
     void sendStudentLoginSuccessful(QTcpSocket*socket,QString id){
-        //Message message;
+
         Header header(0x12);
         StudentInfo *info = Data::instance()->getStudentTable().value(id);
         QByteArray d = info->toByteArray();
         Message m(header,d);
+        //注意线程同步,这个需要最先发送!
         socket->write(m.toByteArray());
+        if(socket->waitForBytesWritten()){
+            semo.release();
+        }
     }
     void sendStudentLoginIdNotFound(QTcpSocket*socket,QString id);
     void sendStudentLoginPasswordError(QTcpSocket*socket,QString id);
     void sendStudentLoginRepeatedly(QTcpSocket*socket,QString id);
 
     void broadcastNewStudent(QString id){
+        semo.acquire();
+
         StudentInfo *info = Data::instance()->getStudentTable().value(id);
         Header h(BROADCAST_TYPE::ADD_NEW_STUDENT);
         Message message(h,info->toByteArray());
-        for(QTcpSocket* s:Data::instance()->getSocketsExcepted(id)){
-            qDebug()<<"emm";
+
+        for(auto& s:Data::instance()->getStudentSockets()){
             s->write(message.toByteArray());
+            if(s->waitForBytesWritten()){
+                qDebug()<<"broadcastNewStudent";
+            }
         }
+
+        semo.release();
+    }
+    void broadcaseOnlineNumber(int num){
+
+        semo.acquire();
+
+        Header header(BROADCAST_TYPE::CORRECT_ONLINENUM);
+        Message message(header);
+        message.append(num);
+
+        for(auto& socket:Data::instance()->getStudentSockets()){
+            socket->write(message.toByteArray());
+            if(socket->waitForBytesWritten()){
+               qDebug()<<"broadcaseOnlineNumber" + QString::number(num);
+            }
+        }
+        semo.release();
     }
 signals:
 
 public slots:
+private:
+    QMutex mutex;
+    QSemaphore semo;
 };
 
 #endif // STUDENTLOGINREQUESTHANDLER_H

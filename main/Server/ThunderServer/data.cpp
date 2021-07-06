@@ -11,6 +11,18 @@ QMap<QString, StudentInfo *> Data::getStudentTable() const
     return studentTable;
 }
 
+QList<QTcpSocket *> Data::getSocketsExcepted(QString id){
+    QList<QTcpSocket*>ret;
+    for(auto _id:studentTable.keys()){
+        if(_id == id || studentTable.value(_id)->getSocket() == nullptr){
+            continue;
+        }
+        ret.append(studentTable.value(_id)->getSocket());
+    }
+    //teacher?
+    return ret;
+}
+
 
 void Data::initStudents()
 {

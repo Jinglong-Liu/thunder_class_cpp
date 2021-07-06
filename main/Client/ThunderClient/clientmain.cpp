@@ -29,7 +29,7 @@ ClientMain::ClientMain()
     connect(analyser,&MessageAnalyser::studentLoginSuccessFul,studentViewHandler,&StudentViewHandler::handleStudentLoginSuccessful);
     connect(analyser,&MessageAnalyser::addNewStudent,studentViewHandler,&StudentViewHandler::handleAddNewStudent);
     connect(analyser,&MessageAnalyser::LoginError,loginViewHandler,&LoginViewHandler::loginError);
-
+    connect(analyser,&MessageAnalyser::correctOnlineNum,studentViewHandler,&StudentViewHandler::handleCorrectOnlineNum);
 
     emit initLoginUi("127.0.0.1",7788);
 

@@ -16,6 +16,9 @@ public:
     void handleAddNewStudent(StudentInfo *info){
         view->addOnlineStudent(info);
     }
+    void handleCorrectOnlineNum(int num){
+        view->setOnlineNumber(num);
+    }
 signals:
 
 public slots:

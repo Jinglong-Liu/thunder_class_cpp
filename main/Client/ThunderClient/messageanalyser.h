@@ -45,6 +45,12 @@ public:
             emit addNewStudent(info);
             break;
         }
+        case BROADCAST_TYPE::CORRECT_ONLINENUM:{
+            int num = *(int*)data.data();
+            qDebug()<<"num == "  +QString::number(num);
+            emit correctOnlineNum(num);
+            break;
+        }
         default:{
 
             break;
@@ -55,6 +61,7 @@ signals:
     void studentLoginSuccessFul(StudentInfo *info = nullptr);
     void addNewStudent(StudentInfo *info);
     void LoginError(int type);
+    void correctOnlineNum(int num);
 public slots:
 private:
 };

@@ -51,7 +51,7 @@ public:
     QList<QTcpSocket*> getStudentSockets(){
         QList<QTcpSocket*>res;
         studentSocketsMutex.lock();
-        for(auto info:studentTable.values()){
+        for(auto& info:studentTable.values()){
             if(info->getSocket()!=nullptr){
                 res.push_back(info->getSocket());
             }
@@ -60,18 +60,22 @@ public:
         return res;
     }
     void setStudentOnline(QTcpSocket *socket,QString id){
+        studentTableMutex.lock();
         for(QString _id:studentTable.keys()){
             if(_id == id){
                 studentTable.value(_id)->setSocket(socket);
             }
         }
+        studentTableMutex.unlock();
     }
     void setStudentOffline(QTcpSocket *socket,StudentInfo*info){
+        studentTableMutex.lock();
         for(QString id:studentTable.keys()){
             if(id == info->id){
                 studentTable.value(id)->setSocket(nullptr);
             }
         }
+        studentTableMutex.unlock();
     }
     void setStudentOffline(QTcpSocket *socket){
         for(auto &info:studentTable.values()){
@@ -90,18 +94,16 @@ public:
         }
         return count;
     }
-    QList<QTcpSocket*> getSocketsExcepted(QString id){
-        QList<QTcpSocket*>ret;
-        for(auto _id:studentTable.keys()){
-            if(_id == id || studentTable.value(_id)->getSocket() == nullptr){
-                continue;
+    QList<QTcpSocket*> getSocketsExcepted(QString id);
+    int getOnlineNums(){
+        int ret = 0;
+        for(auto info:studentTable.values()){
+            if(info->getSocket()!=nullptr){
+                ret++;
             }
-            ret.append(studentTable.value(_id)->getSocket());
         }
-        //teacher?
         return ret;
     }
-
 private:
     Data();
     QMap<QString,StudentInfo*>studentTable;
