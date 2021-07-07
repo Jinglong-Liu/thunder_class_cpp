@@ -25,40 +25,43 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        clientmain.cpp \
-        connectrequest.cpp \
-        error.cpp \
-        loginviewhandler.cpp \
-        main.cpp \
-        login.cpp \
-        message.cpp \
-        messageanalyser.cpp \
-        messagesender.cpp \
-        model/student.cpp \
-        mydata.cpp \
-        recvmsg.cpp \
-        studentoperationhandler.cpp \
-        studentview.cpp \
-        studentviewhandler.cpp \
-        util.cpp
+        ./src/clientmain.cpp \
+        ./src/control/connectrequest.cpp \
+        ./src/error.cpp \
+        ./src/control/loginviewhandler.cpp \
+        ./src/main.cpp \
+        ./src/view/login.cpp \
+        ./src/model/message.cpp \
+        ./src/control/messageanalyser.cpp \
+        ./src/control/messagereceiver.cpp \
+        ./src/control/messagesender.cpp \
+        ./src/model/student.cpp \
+        ./src/model/mydata.cpp \
+        ./src/control/studentoperationhandler.cpp \
+        ./src/view/studentview.cpp \
+        ./src/control/studentviewhandler.cpp \
+        ./src/utils/util.cpp
 
 HEADERS += \
-        clientmain.h \
-        config.h \
-        connectrequest.h \
-        error.h \
-        login.h \
-        loginviewhandler.h \
-        message.h \
-        messageanalyser.h \
-        messagesender.h \
-        model/student.h \
-        mydata.h \
-        recvmsg.h \
-        studentoperationhandler.h \
-        studentview.h \
-        studentviewhandler.h \
-        util.h
+        ./include/clientmain.h \
+        ./include/config/config.h \
+        ./include/control/connectrequest.h \
+        ./include/config/error.h \
+        ./include/view/login.h \
+        ./include/control/loginviewhandler.h \
+        ./include/model/message.h \
+        ./include/control/messageanalyser.h \
+        ./include/control/messagereceiver.h \
+        ./include/control/messagesender.h \
+        ./include/model/student.h \
+        ./include/model/mydata.h \
+        ./include/control/studentoperationhandler.h \
+        ./include/view/studentview.h \
+        ./include/control/studentviewhandler.h \
+        ./include/utils/util.h \
+        ./include/config.h \
+        ./include/control/control.h \
+        ./include/model/model.h
 
 FORMS += \
         login.ui \
