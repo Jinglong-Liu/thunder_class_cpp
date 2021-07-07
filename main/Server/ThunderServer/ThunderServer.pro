@@ -29,15 +29,16 @@ SOURCES += \
         data.cpp \
         datahandler.cpp \
         error.cpp \
+        loginrequesthandler.cpp \
+        logouthandler.cpp \
         main.cpp \
         mainwindow.cpp \
         message.cpp \
         messageanalyser.cpp \
         messagesender.cpp \
         servermain.cpp \
-        studentloginrequesthandler.cpp \
-        studentlogouthandler.cpp \
         studentrequesthandler.cpp \
+        teacherrequesthandler.cpp \
         util.cpp
 
 HEADERS += \
@@ -46,13 +47,14 @@ HEADERS += \
         data.h \
         datahandler.h \
         error.h \
+        loginrequesthandler.h \
+        logouthandler.h \
         mainwindow.h \
         message.h \
         messageanalyser.h \
-        messagesender.h \      
+        messagesender.h \
+        teacherrequesthandler.h \
         servermain.h \
-        studentloginrequesthandler.h \
-        studentlogouthandler.h \
         studentrequesthandler.h \
         util.h
 

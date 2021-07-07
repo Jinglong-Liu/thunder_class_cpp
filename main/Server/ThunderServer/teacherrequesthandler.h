@@ -1,17 +1,17 @@
-#ifndef STUDENTREQUESTHANDLER_H
-#define STUDENTREQUESTHANDLER_H
+#ifndef TEACHERREQUESTHANDLER_H
+#define TEACHERREQUESTHANDLER_H
 
 #include <QObject>
 #include"data.h"
 #include"message.h"
-class StudentRequestHandler : public QObject
+class TeacherRequestHandler : public QObject
 {
     Q_OBJECT
 public:
-    explicit StudentRequestHandler(QObject *parent = nullptr);
+    explicit TeacherRequestHandler(QObject *parent = nullptr);
     void broadcastMessage(QByteArray data){
         for(auto&socket:Data::instance()->getSockets()){
-            Header header(BroadcastType::BroadcastMessageFromStudent);
+            Header header(BroadcastType::BroadcastMessageFromTeacher);
             Message message(header,data);
             socket->write(message.toByteArray());
         }
@@ -21,4 +21,4 @@ signals:
 public slots:
 };
 
-#endif // STUDENTREQUESTHANDLER_H
+#endif // TEACHERREQUESTHANDLER_H

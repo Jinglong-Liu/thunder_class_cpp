@@ -18,10 +18,16 @@ public:
         qDebug()<<"type = " + QString::number(header.getType(),16);
         QByteArray data = message.getData();
         switch(header.getType()){
-        case 0x012:{
+        case ResponseType::StudentLoginSucceed:{
             StudentInfo* info = new StudentInfo(data);
             Mydata::instance()->setStudentInfo(info);
             emit studentLoginSuccessFul(info);
+            break;
+        }
+        case ResponseType::TeacherLoginSucceed:{
+            TeacherInfo* info = new TeacherInfo(data);
+            Mydata::instance()->setTeacherInfo(info);
+            emit teacherLoginSuccessFul(info);
             break;
         }
         case ERROR_LOGIN_ERR::PASSWORD_ERR:
@@ -31,17 +37,17 @@ public:
             break;
         }
 
-        case BROADCAST_TYPE::ADD_NEW_STUDENT:{
+        case BroadcastType::AddNewStudent:{
             StudentInfo* info = new StudentInfo(data);
             emit addNewStudent(info);
             break;
         }
-        case BROADCAST_TYPE::CORRECT_ONLINENUM:{
+        case BroadcastType::CorrectOnlineNum:{
             int num = *(int*)data.data();
             emit correctOnlineNum(num);
             break;
         }
-        case BROADCAST_TYPE::BROADCAST_MESSAGE:{
+        case BroadcastType::BroadcastMessageFromStudent:{
             StudentInfo info(data.mid(0,sizeof(StudentInfo)));
             QString stu = info.getName() + "  " + QTime::currentTime().toString() + "\n";
             QString text(data.mid(sizeof(StudentInfo)));
@@ -49,6 +55,14 @@ public:
             emit appendText(ret);
 
             //在ui显示
+            break;
+        }
+        case BroadcastType::BroadcastMessageFromTeacher:{
+            TeacherInfo info(data.mid(0,sizeof(StudentInfo)));
+            QString stu = info.getName() + "  " + QTime::currentTime().toString() + "\n";
+            QString text(data.mid(sizeof(TeacherInfo)));
+            QString ret = stu + text;
+            emit appendText(ret);
             break;
         }
         default:{
@@ -59,7 +73,9 @@ public:
     }
 signals:
     void studentLoginSuccessFul(StudentInfo *info = nullptr);
+    void teacherLoginSuccessFul(TeacherInfo *info = nullptr);//undo
     void addNewStudent(StudentInfo *info);
+    void addNewTeacher(TeacherInfo *info);//
     void LoginError(int type);
     void correctOnlineNum(int num);
     void appendText(QString str);

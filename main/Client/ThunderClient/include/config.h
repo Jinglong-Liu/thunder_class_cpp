@@ -6,4 +6,5 @@
 #include"./utils/util.h"
 #include"./view/login.h"
 #include"./view/studentview.h"
+#include"./view/teacherview.h"
 #endif // HEAD_H

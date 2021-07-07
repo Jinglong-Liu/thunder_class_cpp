@@ -20,10 +20,11 @@ private:
     //ui
     Login* login;
     StudentView *studentView;
+    TeacherView *teacherView;
     //control
     LoginViewHandler* loginViewHandler;
     StudentViewHandler* studentViewHandler;
-
+    TeacherViewHandler *teacherViewHandler;
     ConnectRequest* connectRequest;
 
     //互斥资源socket

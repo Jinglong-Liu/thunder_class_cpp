@@ -1,23 +1,24 @@
-#ifndef STUDENTVIEW_H
-#define STUDENTVIEW_H
+#ifndef TEACHERVIEW_H
+#define TEACHERVIEW_H
 
 #include <QMainWindow>
-#include"../model/student.h"
 #include"../model/teacher.h"
+#include"../model/student.h"
 namespace Ui {
-class StudentView;
+class TeacherView;
 }
 
-class StudentView : public QMainWindow
+class TeacherView : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit StudentView(QWidget *parent = nullptr);
-    ~StudentView();
+    explicit TeacherView(QWidget *parent = nullptr);
+    ~TeacherView();
+
     void addOnlineStudent(StudentInfo *info);
     void addOnlineTeacher(TeacherInfo *info);
-    void displayStudentInfo(StudentInfo* info);
+    void displayTeacherInfo(TeacherInfo* info);
     void setOnlineNumber(int count);
     void appendText(QString str);
 signals:
@@ -26,10 +27,7 @@ private slots:
     void on_sendMsg_clicked();
 
 private:
-    Ui::StudentView *ui;
-
-    //Student* student;
-
+    Ui::TeacherView *ui;
 };
 
-#endif // STUDENTVIEW_H
+#endif // TEACHERVIEW_H

@@ -7,4 +7,5 @@
 #include"messagesender.h"
 #include"studentoperationhandler.h"
 #include"studentviewhandler.h"
+#include"teacherviewhandler.h"
 #endif // CONTROL_H

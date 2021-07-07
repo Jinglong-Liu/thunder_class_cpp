@@ -14,6 +14,6 @@ void LoginViewHandler::setView(Login *value)
     view = value;
 }
 
-void LoginViewHandler::loginSuccessful(StudentInfo *info){
+void LoginViewHandler::loginSuccessful(void *info){
     view->studentLoginSucceed();
 }

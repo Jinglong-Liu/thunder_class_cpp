@@ -12,7 +12,7 @@ public:
     LoginViewHandler(Login* view,QObject *parent = nullptr);
     Login *getView() const;
     void setView(Login *value);
-    void loginSuccessful(StudentInfo *info = nullptr);
+    void loginSuccessful(void *info = nullptr);
     void loginError(int type){
         switch(type){
         case ERROR_LOGIN_ERR::PASSWORD_ERR:{

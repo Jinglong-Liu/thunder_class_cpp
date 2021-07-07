@@ -3,7 +3,7 @@
 #include"config.h"
 #include<QThreadPool>
 #include"messageanalyser.h"
-#include"studentlogouthandler.h"
+#include"logouthandler.h"
 Correspond::Correspond()
 {
     this->data = Data::instance();
@@ -47,9 +47,10 @@ void Correspond::startListen(QString ip, unsigned short port)
 
             emit online_num(sockets.size());//这个不大对
             //emit online_teacher_num()
-            StudentLogoutHandler *handler = new StudentLogoutHandler();
+            LogoutHandler *handler = new LogoutHandler();
             handler->handle(socket);
             emit online_student_num(Data::instance()->getOnlineStudentNumber());
+            emit online_teacher_num(Data::instance()->getOnlineTeacherNumber());
             socket->deleteLater();
         });
     });

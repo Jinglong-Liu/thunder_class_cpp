@@ -10,7 +10,7 @@ class MessageSender : public QObject
 public:
     explicit MessageSender(QTcpSocket *socket,QObject *parent = nullptr);
     void sendStudentLoginRequest(QString id,QString password){
-        Header header(0x12);
+        Header header(RequestType::StudentLogin);
 
         int idLength = id.length();
         Message message(header);
@@ -22,10 +22,30 @@ public:
         qDebug()<<QString(array);
         socket->write(message.toByteArray());
     }
-    void sendBroadcastMessage(QString str){
-        Header header(BROADCAST_TYPE::BROADCAST_MESSAGE);
+    void sendTeacherLoginRequest(QString id,QString password){
+        Header header(RequestType::TeachetLogin);
+        int idLength = id.length();
         Message message(header);
-        message.append(Mydata::instance()->getStudentInfo()->toByteArray());
+        message.append(idLength);
+        message.append(id);
+        message.append(password);
+        QByteArray array = message.toByteArray();
+        qDebug()<<array;
+        qDebug()<<QString(array);
+        socket->write(message.toByteArray());
+    }
+    void sendBroadcastMessage(QString str,Status state){
+        Message message;
+        if(state == Status::student){
+            Header header(BroadcastType::BroadcastMessageFromStudent);
+            message = Message(header);
+            message.append(Mydata::instance()->getStudentInfo()->toByteArray());
+        }
+        else{
+            Header header(BroadcastType::BroadcastMessageFromTeacher);
+            message = Message(header);
+            message.append(Mydata::instance()->getTeacherInfo()->toByteArray());
+        }
         message.append(str);
 
         socket->write(message.toByteArray());

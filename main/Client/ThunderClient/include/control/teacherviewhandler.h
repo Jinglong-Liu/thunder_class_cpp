@@ -1,17 +1,16 @@
-#ifndef STUDENTVIEWHANDLER_H
-#define STUDENTVIEWHANDLER_H
+#ifndef TEACHERVIEWHANDLER_H
+#define TEACHERVIEWHANDLER_H
 
 #include <QObject>
 #include"../config/config.h"
 #include"../model/student.h"
-#include"../view/studentview.h"
-class StudentViewHandler : public QObject
+#include"../view/teacherview.h"
+class TeacherViewHandler : public QObject
 {
     Q_OBJECT
 public:
-    explicit StudentViewHandler(StudentView *view,QObject *parent = nullptr);
-
-    void handleStudentLoginSuccessful(StudentInfo *info);
+    explicit TeacherViewHandler(TeacherView *teacherView,QObject *parent = nullptr);
+    void handleTeacherLoginSuccessful(TeacherInfo *info);
     void handleAddNewStudent(StudentInfo *info){
         view->addOnlineStudent(info);
     }
@@ -28,7 +27,7 @@ signals:
 
 public slots:
 private:
-    StudentView *view;
+    TeacherView *view;
 };
 
-#endif // STUDENTVIEWHANDLER_H
+#endif // TEACHERVIEWHANDLER_H

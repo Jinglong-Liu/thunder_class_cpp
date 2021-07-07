@@ -32,10 +32,13 @@ signals:
     void requestForLogin(QString id,QString password);
 
     void studentLoginRequest(QString id,QString password);
+    void teacherLoginRequest(QString id,QString password);
 private slots:
     void on_connectBtn_clicked();
 
     void on_loginStudentBtn_clicked();
+
+    void on_loginTeacherBtn_clicked();
 
 private:
     ConnectRequest* connectRequest;

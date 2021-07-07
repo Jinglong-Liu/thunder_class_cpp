@@ -73,3 +73,10 @@ void Login::on_loginStudentBtn_clicked()
     QString password = ui->password->text();
     emit studentLoginRequest(id,password);
 }
+
+void Login::on_loginTeacherBtn_clicked()
+{
+    QString id = ui->id->text();
+    QString password = ui->password->text();
+    emit teacherLoginRequest(id,password);
+}

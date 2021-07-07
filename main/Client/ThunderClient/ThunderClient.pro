@@ -34,37 +34,45 @@ SOURCES += \
         ./src/control/messagesender.cpp \
         ./src/control/studentoperationhandler.cpp \
         ./src/control/studentviewhandler.cpp \
+        ./src/control/teacherviewhandler.cpp \
         ./src/model/student.cpp \
         ./src/model/message.cpp \
         ./src/model/mydata.cpp \
-        ./src/view/login.cpp \
-        ./src/view/studentview.cpp \
+        ./src/model/teacher.cpp \
         ./src/utils/error.cpp \
-        ./src/utils/util.cpp
+        ./src/utils/util.cpp \
+        ./src/view/teacherview.cpp \
+        ./src/view/login.cpp \
+        ./src/view/studentview.cpp
+
 HEADERS += \
         ./include/main/clientmain.h \
+        ./include/config.h \
         ./include/config/config.h \
+        ./include/control/control.h \
         ./include/control/connectrequest.h \
-        ./include/view/login.h \
         ./include/control/loginviewhandler.h \
-        ./include/model/message.h \
         ./include/control/messageanalyser.h \
         ./include/control/messagereceiver.h \
         ./include/control/messagesender.h \
-        ./include/model/student.h \
-        ./include/model/mydata.h \
-        ./include/control/studentoperationhandler.h \
-        ./include/view/studentview.h \
+        ./include/control/studentoperationhandler.h  \
         ./include/control/studentviewhandler.h \
+        ./include/control/teacherviewhandler.h \
+        ./include/model/message.h \
+        ./include/model/student.h \
+        ./include/model/mydata.h  \
+        ./include/model/model.h \
+        ./include/model/teacher.h \
+        ./include/view/login.h \
+        ./include/view/studentview.h\
+        ./include/view/teacherview.h\
         ./include/utils/util.h \
-        ./include/utils/error.h \
-        ./include/config.h \
-        ./include/control/control.h \
-        ./include/model/model.h
+        ./include/utils/error.h
 
 FORMS += \
         login.ui \
-        studentview.ui
+        studentview.ui \
+        teacherview.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

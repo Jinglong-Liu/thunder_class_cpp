@@ -6,8 +6,9 @@
 #include<QtCore>
 #include"datahandler.h"
 #include"error.h"
-#include"studentloginrequesthandler.h"
+#include"loginrequesthandler.h"
 #include"studentrequesthandler.h"
+#include"teacherrequesthandler.h"
 class MessageAnalyser: public QObject,public QRunnable
 {
     Q_OBJECT
@@ -17,12 +18,20 @@ public:
         int type = message.getHeader().getType();
         qDebug()<<"type == " + QString::number(type,16);
         switch(type){
-        case 0x12:{
-            handleStudentLoginRequest(message);
+        case RequestType::StudentLogin:{
+            handleLoginRequest(message,Status::student);
             break;
         }
-        case BROADCAST_TYPE::BROADCAST_MESSAGE:{
-            handleBroadcastMessage(message.getData());
+        case RequestType::TeachetLogin:{
+            handleLoginRequest(message,Status::teacher);
+            break;
+        }
+        case BroadcastType::BroadcastMessageFromStudent:{
+            handleBroadcastMessage(message.getData(),Status::student);
+            break;
+        }
+        case BroadcastType::BroadcastMessageFromTeacher:{
+            handleBroadcastMessage(message.getData(),Status::teacher);
             break;
         }
         default:{
@@ -36,8 +45,8 @@ public:
 private:
     Message message;
     QTcpSocket *socket;
-    void handleStudentLoginRequest(Message message);
-    void handleBroadcastMessage(QByteArray data);
+    void handleLoginRequest(Message message,Status state);
+    void handleBroadcastMessage(QByteArray data,Status state);
 };
 
 #endif // MESSAGEANALYSER_H

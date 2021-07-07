@@ -17,6 +17,11 @@ void StudentView::addOnlineStudent(StudentInfo *info)
     ui->textRecv->append("学生 " + info->getId() + " " + info->getName() + "已上线.");
 }
 
+void StudentView::addOnlineTeacher(TeacherInfo *info)
+{
+    ui->textRecv->append("教师 " + info->getName() + "已上线.");
+}
+
 
 void StudentView::displayStudentInfo(StudentInfo *info)
 {
@@ -35,6 +40,8 @@ void StudentView::appendText(QString str){
 
 void StudentView::on_sendMsg_clicked()
 {
-    emit broadcastMessage(ui->textToSend->toPlainText());
-    ui->textToSend->clear();
+    if(ui->textToSend->toPlainText().size()!=0){
+        emit broadcastMessage(ui->textToSend->toPlainText(),Status::student);
+        ui->textToSend->clear();
+    }
 }

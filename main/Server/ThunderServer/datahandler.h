@@ -14,7 +14,13 @@ public:
     void setStudentOffline(QTcpSocket *socket){
         Data::instance()->setStudentOffline(socket);
     }
-
+    //unused
+    void addOnlineTeacher(QTcpSocket*socket,QString id){
+        Data::instance()->setTeacherOnline(socket,id);
+    }
+    void setTeacherOffline(QTcpSocket *socket){
+        Data::instance()->setTeacherOffline(socket);
+    }
 signals:
 
 public slots:
