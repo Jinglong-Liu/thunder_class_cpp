@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include"./model/student.h"
-#include "onlinedata.h"
 namespace Ui {
 class StudentView;
 }
@@ -16,7 +15,6 @@ public:
     explicit StudentView(QWidget *parent = nullptr);
     ~StudentView();
     void addOnlineStudent(StudentInfo *info);
-    void updateOnlineData(OnlineData* data);
 
     void displayStudentInfo(StudentInfo* info);
     void setOnlineNumber(int count);

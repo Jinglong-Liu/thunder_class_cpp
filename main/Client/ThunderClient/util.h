@@ -12,9 +12,6 @@
 
 class Util{
 public:
-    static QByteArray toHexByteArray(uint32_t num);
-    //static QByteArray toHexByteArray(int num);
-    static uint32_t toUint32_t(QByteArray hexByteArray);
-    static uint32_t toUint32_t(QByteArray hexByteArray,int start,int size);
+
 };
 #endif // UTIL_H

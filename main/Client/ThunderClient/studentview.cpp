@@ -1,7 +1,6 @@
 #include "studentview.h"
 #include "ui_studentview.h"
 #include"config.h"
-//StudentView* StudentView::view = new StudentView();
 StudentView::StudentView(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::StudentView)
@@ -19,10 +18,6 @@ void StudentView::addOnlineStudent(StudentInfo *info)
     ui->textRecv->append("学生 " + info->getId() + " " + info->getName() + "已上线.");
 }
 
-void StudentView::updateOnlineData(OnlineData* data)
-{
-    ui->onlineNum->setNum(data->getOnlineNum());
-}
 
 void StudentView::displayStudentInfo(StudentInfo *info)
 {

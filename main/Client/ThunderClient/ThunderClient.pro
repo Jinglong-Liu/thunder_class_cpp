@@ -35,9 +35,7 @@ SOURCES += \
         messageanalyser.cpp \
         messagesender.cpp \
         model/student.cpp \
-        msgsender.cpp \
         mydata.cpp \
-        onlinedata.cpp \
         recvmsg.cpp \
         studentoperationhandler.cpp \
         studentview.cpp \
@@ -55,9 +53,7 @@ HEADERS += \
         messageanalyser.h \
         messagesender.h \
         model/student.h \
-        msgsender.h \
         mydata.h \
-        onlinedata.h \
         recvmsg.h \
         studentoperationhandler.h \
         studentview.h \

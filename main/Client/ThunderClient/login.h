@@ -6,7 +6,6 @@
 #include "studentview.h"
 #include "analyser.h"
 #include "config.h"
-#include "onlinedata.h"
 namespace Ui {
 class Login;
 }
@@ -37,15 +36,9 @@ private slots:
     void on_loginStudentBtn_clicked();
 
 private:
-
-    //static Login* loginView;
     ConnectRequest* connectRequest;
     StudentView *studentView;
-    StudentInfo* student;
-
-
     QTcpSocket* socket;
-    OnlineData* onlineData;
 };
 
 #endif // LOGIN_H

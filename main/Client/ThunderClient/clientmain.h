@@ -2,7 +2,6 @@
 #define CLIENTMAIN_H
 #include "login.h"
 #include"recvmsg.h"
-#include"msgsender.h"
 #include"loginviewhandler.h"
 #include"studentviewhandler.h"
 #include "mydata.h"
@@ -22,7 +21,6 @@ signals:
 private:
     //model
     //TeacherInfo* teacher;
-    OnlineData* onlineData;
     //ui
     Login* login;
     StudentView *studentView;
@@ -36,7 +34,6 @@ private:
     QTcpSocket* socket;
     //thread
     RecvMsg* receiver;
-    MsgSender *sender;
     //
     Mydata* mydata;
 };

@@ -3,7 +3,7 @@
 #include<QByteArray>
 #include <QList>
 #include<QDebug>
-#include"error.h"
+#include"config.h"
 struct Header{
     int type;
     int headSize;

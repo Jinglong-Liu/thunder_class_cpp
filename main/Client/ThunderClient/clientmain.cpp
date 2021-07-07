@@ -13,9 +13,6 @@ ClientMain::ClientMain()
     studentView = new StudentView();
     studentViewHandler = new StudentViewHandler(studentView);
 
-
-    onlineData = new OnlineData();
-    //student = new StudentInfo();
     socket = new QTcpSocket;
 
 
