@@ -3,6 +3,7 @@
 #include"message.h"
 #include"messagesender.h"
 #include"messageanalyser.h"
+
 #include<QtCore>
 ClientMain::ClientMain()
 {
@@ -14,7 +15,7 @@ ClientMain::ClientMain()
 
 
     onlineData = new OnlineData();
-    student = new StudentInfo();
+    //student = new StudentInfo();
     socket = new QTcpSocket;
 
 
@@ -31,7 +32,7 @@ ClientMain::ClientMain()
     connect(analyser,&MessageAnalyser::addNewStudent,studentViewHandler,&StudentViewHandler::handleAddNewStudent);
     connect(analyser,&MessageAnalyser::LoginError,loginViewHandler,&LoginViewHandler::loginError);
     connect(analyser,&MessageAnalyser::correctOnlineNum,studentViewHandler,&StudentViewHandler::handleCorrectOnlineNum);
-
+    connect(analyser,&MessageAnalyser::appendText,studentViewHandler,&StudentViewHandler::appendText);
     emit initLoginUi("127.0.0.1",7788);
 
     connectRequest = new ConnectRequest(socket);
@@ -39,11 +40,7 @@ ClientMain::ClientMain()
     connect(login,&Login::requestForConnect,this,&ClientMain::doConnectRequest);//request for connection.
     //login ui
     connect(this,&ClientMain::initLoginUi,login,&Login::initView);
-
-    //connect(analyser,&Analyser::newStudent,this,&ClientMain::addNewStudent);
-    //connect(analyser,&Analyser::studentLoginSucceed,this,&ClientMain::studentLoginSucceed);//
-    //connect(analyser,&Analyser::studentLoginFail,login,&Login::studentLoginFail);
-    //connect(analyser,&Analyser::studentLoginNotFound,login,&Login::studentLoginNotFound);
+    connect(studentView,&StudentView::broadcastMessage,sender,&MessageSender::sendBroadcastMessage);//发送信息
 
     //发送
     //connect(login,&Login::studentLoginRequest,sender,&MsgSender::sendStudentLoginRequest);//发送学生登录请求
@@ -52,34 +49,6 @@ ClientMain::ClientMain()
     //connect(receiver,&RecvMsg::recvMsg,analyser,&Analyser::analyse);//接收信息
     //connect(analyser,&Analyser::UpdateonlineNumber,studentView,&StudentView::setOnlineNumber);//界面更改人数
     login->show();
-}
-
-void ClientMain::addNewStudent(StudentInfo *info)
-{
-    //to data
-    onlineData->studentOnline(info);
-    //to ui
-
-    //login ui
-    login->studentLoginSucceed();
-    //student ui
-    studentView->addOnlineStudent(info);
-    //studentView->updateOnlineData(count);//更新信息(人数)
-}
-
-void ClientMain::studentLoginSucceed(StudentInfo *info)
-{
-    //client作为学生登录成功
-    //ui
-    login->studentLoginSucceed();
-    login->hide();
-    //display this student's info in the ui.
-    studentView->displayStudentInfo(info);
-    studentView->show();
-    //data
-    student = info;
-
-    addNewStudent(info);
 }
 
 void ClientMain::doConnectRequest(QString ip, unsigned short port)

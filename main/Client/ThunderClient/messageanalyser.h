@@ -7,6 +7,7 @@
 #include"loginviewhandler.h"
 #include"login.h"
 #include"error.h"
+#include"mydata.h"
 class MessageAnalyser : public QObject
 {
     Q_OBJECT
@@ -20,17 +21,8 @@ public:
         switch(header.getType()){
         case 0x012:{
             StudentInfo* info = new StudentInfo(data);
-           // qDebug()<<info->getId();
-           // qDebug()<<info->getName();
-           // qDebug()<<info->getPassword();
+            Mydata::instance()->setStudentInfo(info);
             emit studentLoginSuccessFul(info);
-/*
-            StudentViewHandler* hander = new StudentViewHandler();
-            hander->handleStudentLoginSuccessful(data);
-
-            Login::instance()->studentLoginSucceed();
-            Login::instance()->hide();
-*/
             break;
         }
         case ERROR_LOGIN_ERR::PASSWORD_ERR:
@@ -47,8 +39,17 @@ public:
         }
         case BROADCAST_TYPE::CORRECT_ONLINENUM:{
             int num = *(int*)data.data();
-            qDebug()<<"num == "  +QString::number(num);
             emit correctOnlineNum(num);
+            break;
+        }
+        case BROADCAST_TYPE::BROADCAST_MESSAGE:{
+            StudentInfo info(data.mid(0,sizeof(StudentInfo)));
+            QString stu = info.getName() + "  " + QTime::currentTime().toString() + "\n";
+            QString text(data.mid(sizeof(StudentInfo)));
+            QString ret = stu + text;
+            emit appendText(ret);
+
+            //在ui显示
             break;
         }
         default:{
@@ -62,6 +63,7 @@ signals:
     void addNewStudent(StudentInfo *info);
     void LoginError(int type);
     void correctOnlineNum(int num);
+    void appendText(QString str);
 public slots:
 private:
     //QQueue<QByteArray>MessageQueue;

@@ -5,7 +5,6 @@
 #include<QThread>
 #include"correspond.h"
 #include"data.h"
-#include "msgsender.h"
 namespace Ui {
 class MainWindow;
 }
@@ -27,8 +26,6 @@ private:
     Data *data;
 
     Correspond* correspond;
-    //AnalysisMsg* analyser;
-    //QThread* correspondThread;
 };
 
 #endif // MAINWINDOW_H

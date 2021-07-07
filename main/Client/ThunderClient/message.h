@@ -3,6 +3,7 @@
 #include<QByteArray>
 #include <QList>
 #include<QDebug>
+#include"error.h"
 struct Header{
     int type;
     int headSize;
@@ -53,6 +54,10 @@ public:
     }
     void append(QString& str){
         this->data.append(str);
+        this->header.setDataSize(data.size());
+    }
+    void append(QByteArray byte){
+        this->data.append(byte);
         this->header.setDataSize(data.size());
     }
     QByteArray getData() const;

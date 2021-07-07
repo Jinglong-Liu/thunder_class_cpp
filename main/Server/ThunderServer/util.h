@@ -7,15 +7,6 @@
 #include<QMutex>
 class Util{
 public:
-    static QByteArray toHexByteArray(uint32_t num);
-    static uint32_t toUint32_t(QByteArray hexByteArray);
-    static uint32_t toUint32_t(QByteArray hexByteArray,int start,int size);
-    static QSet<QTcpSocket*>tcpSockets;
-    static QMutex tcpSocketMutex;
     //static OnlineData *onlineData;
-};
-struct Prepare{
-    QSet<QTcpSocket*>socketsToSend;
-    QByteArray messageToSend;
 };
 #endif // TOOL_H

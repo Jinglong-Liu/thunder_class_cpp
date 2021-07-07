@@ -19,6 +19,9 @@ public:
     void handleCorrectOnlineNum(int num){
         view->setOnlineNumber(num);
     }
+    void appendText(QString str){
+        view->appendText(str);
+    }
 signals:
 
 public slots:

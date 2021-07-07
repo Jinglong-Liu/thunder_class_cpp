@@ -16,21 +16,17 @@ Correspond::Correspond(Data *data){
 
 void Correspond::startListen(QString ip, unsigned short port)
 {
-    MsgSender* sender = new MsgSender();
     server = new QTcpServer();
-
     server->listen(QHostAddress(ip),port);
-    //
+
     connect(server,&QTcpServer::newConnection,this,[=](){
         QTcpSocket* socket = server->nextPendingConnection();
-        Util::tcpSocketMutex.lock();
+
         sockets.insert(socket);
-        Util::tcpSocketMutex.unlock();
+
         emit online_num(sockets.size());
         emit online_student_num(Data::instance()->getOnlineStudentNumber());
 
-        //m_status->setPixmap(QPixmap(":/img/ok.jpg").scaled(20,20));
-        //statuBa->setText("在线人数" + QString(sockets.size()));
         //检测是否可以接受数据
         connect(socket,&QTcpSocket::readyRead,this,[=](){
             QByteArray messages = socket->readAll();
@@ -50,19 +46,13 @@ void Correspond::startListen(QString ip, unsigned short port)
             sockets.remove(socket);
 
             emit online_num(sockets.size());//这个不大对
-
             //emit online_teacher_num()
-
             StudentLogoutHandler *handler = new StudentLogoutHandler();
             handler->handle(socket);
-
             emit online_student_num(Data::instance()->getOnlineStudentNumber());
             socket->deleteLater();
         });
     });
-
-    //状态栏
-    //m_status = new QLabel;
 }
 
 void Correspond::run()

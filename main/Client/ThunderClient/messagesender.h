@@ -4,6 +4,7 @@
 #include <QObject>
 #include"config.h"
 #include"message.h"
+#include"mydata.h"
 class MessageSender : public QObject
 {
     Q_OBJECT
@@ -20,6 +21,14 @@ public:
         QByteArray array = message.toByteArray();
         qDebug()<<array;
         qDebug()<<QString(array);
+        socket->write(message.toByteArray());
+    }
+    void sendBroadcastMessage(QString str){
+        Header header(BROADCAST_TYPE::BROADCAST_MESSAGE);
+        Message message(header);
+        message.append(Mydata::instance()->getStudentInfo()->toByteArray());
+        message.append(str);
+
         socket->write(message.toByteArray());
     }
 signals:

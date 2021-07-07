@@ -42,7 +42,7 @@ private:
     ConnectRequest* connectRequest;
     StudentView *studentView;
     StudentInfo* student;
-    Analyser *analyser;
+
 
     QTcpSocket* socket;
     OnlineData* onlineData;

@@ -34,11 +34,10 @@ SOURCES += \
         message.cpp \
         messageanalyser.cpp \
         messagesender.cpp \
-        msgsender.cpp \
-        onlinedata.cpp \
         servermain.cpp \
         studentloginrequesthandler.cpp \
         studentlogouthandler.cpp \
+        studentrequesthandler.cpp \
         util.cpp
 
 HEADERS += \
@@ -50,12 +49,11 @@ HEADERS += \
         mainwindow.h \
         message.h \
         messageanalyser.h \
-        messagesender.h \
-        msgsender.h \
-        onlinedata.h \
+        messagesender.h \      
         servermain.h \
         studentloginrequesthandler.h \
         studentlogouthandler.h \
+        studentrequesthandler.h \
         util.h
 
 FORMS += \

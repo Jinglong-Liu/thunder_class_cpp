@@ -104,6 +104,11 @@ public:
         }
         return ret;
     }
+    //教师还没有加上
+    QList<QTcpSocket*>getSockets(){
+        QList<QTcpSocket*>list = getStudentSockets();
+        return list;
+    }
 private:
     Data();
     QMap<QString,StudentInfo*>studentTable;

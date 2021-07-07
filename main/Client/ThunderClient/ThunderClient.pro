@@ -25,7 +25,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        analyser.cpp \
         clientmain.cpp \
         connectrequest.cpp \
         error.cpp \
@@ -37,14 +36,15 @@ SOURCES += \
         messagesender.cpp \
         model/student.cpp \
         msgsender.cpp \
+        mydata.cpp \
         onlinedata.cpp \
         recvmsg.cpp \
+        studentoperationhandler.cpp \
         studentview.cpp \
         studentviewhandler.cpp \
         util.cpp
 
 HEADERS += \
-        analyser.h \
         clientmain.h \
         config.h \
         connectrequest.h \
@@ -56,8 +56,10 @@ HEADERS += \
         messagesender.h \
         model/student.h \
         msgsender.h \
+        mydata.h \
         onlinedata.h \
         recvmsg.h \
+        studentoperationhandler.h \
         studentview.h \
         studentviewhandler.h \
         util.h

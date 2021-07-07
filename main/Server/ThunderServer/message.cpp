@@ -37,6 +37,12 @@ void Header::setDataSize(int value)
     dataSize = value;
 }
 
+QByteArray Header::toByteArray(){
+    return QByteArray((char*)&type,sizeof(type))
+            +QByteArray((char*)&headSize,sizeof(headSize))
+            +QByteArray((char*)&dataSize,sizeof(dataSize));
+}
+
 int Header::getType() const
 {
     return type;

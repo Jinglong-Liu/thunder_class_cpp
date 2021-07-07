@@ -12,13 +12,9 @@ public:
     Header(int type){
         this->type = type;
         this->headSize = sizeof(*this);
-        this->dataSize = -1;
+        this->dataSize = 0;
     }
-    QByteArray toByteArray(){
-        return QByteArray((char*)&type,sizeof(type))
-                +QByteArray((char*)&headSize,sizeof(headSize))
-                +QByteArray((char*)&dataSize,sizeof(dataSize));
-    }
+    QByteArray toByteArray();
     int getType() const;
     void setType(int value);
     int getHeadSize() const;
@@ -70,13 +66,9 @@ public:
         while(leftByte.size()!=0){
             next = Message(leftByte);
             qDebug()<<"---------------------------------------------------";
-            //qDebug()<<"next = " << next.toByteArray();
-            //qDebug()<<QString::number(next.getHeader().getType(),16)<<" "<<next.getHeader().getDataSize();//ok!
             int nextSize = next.getHeader().getHeadSize() + next.getHeader().getDataSize();
-            qDebug()<<"nextSize = " <<nextSize;
+            //qDebug()<<"nextSize = " <<nextSize;
             Message nextMessage(leftByte.mid(0,nextSize));
-            //qDebug()<<nextMessage.getHeader().getType();
-            //qDebug()<<nextMessage.getHeader().getDataSize();
             list.append(nextMessage);
             leftByte = leftByte.mid(nextSize);
         }

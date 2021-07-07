@@ -20,6 +20,12 @@ public:
 
     void displayStudentInfo(StudentInfo* info);
     void setOnlineNumber(int count);
+    void appendText(QString str);
+signals:
+    void broadcastMessage(QString str);
+private slots:
+    void on_sendMsg_clicked();
+
 private:
     Ui::StudentView *ui;
 

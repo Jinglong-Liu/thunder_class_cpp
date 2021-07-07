@@ -2,7 +2,6 @@
 Data* Data::data = new Data();
 Data::Data()
 {
-
     initStudents();
 }
 

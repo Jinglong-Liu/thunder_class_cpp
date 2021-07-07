@@ -5,14 +5,13 @@
 #include"msgsender.h"
 #include"loginviewhandler.h"
 #include"studentviewhandler.h"
+#include "mydata.h"
 class ClientMain:public QObject
 {
     Q_OBJECT
 public:
     ClientMain();
     void init();
-    void addNewStudent(StudentInfo* info);
-    void studentLoginSucceed(StudentInfo* info);
     void doConnectRequest(QString ip,unsigned short port);
     void tryToRecvMsg(QTcpSocket *socket);
 signals:
@@ -23,7 +22,6 @@ signals:
 private:
     //model
     //TeacherInfo* teacher;
-    StudentInfo *student;
     OnlineData* onlineData;
     //ui
     Login* login;
@@ -33,12 +31,14 @@ private:
     StudentViewHandler* studentViewHandler;
 
     ConnectRequest* connectRequest;
-    Analyser *analyser;
+
     //互斥资源socket
     QTcpSocket* socket;
     //thread
     RecvMsg* receiver;
     MsgSender *sender;
+    //
+    Mydata* mydata;
 };
 
 #endif // CLIENTMAIN_H
