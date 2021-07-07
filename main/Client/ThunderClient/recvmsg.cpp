@@ -7,9 +7,20 @@ RecvMsg::RecvMsg(QTcpSocket *socket)
 
 void RecvMsg::run()
 {
+    receive();
+}
+
+void RecvMsg::receive()
+{
+    //ok!!!!
     connect(tcpsocket,&QTcpSocket::readyRead,this,[=](){
-        QByteArray message = tcpsocket->readAll();
-        qDebug()<<"receive message:"+message;
-        emit recvMsg(message);
+        qDebug()<<"to receive..";
+        QByteArray datas = tcpsocket->readAll();
+        Message m(datas);
+        qDebug()<<"m = " + m.toByteArray();//ok
+        QList<Message> messages = m.splitMessage();
+        for(Message message:messages){
+            emit recvMsg(message.toByteArray());
+        }
     });
 }

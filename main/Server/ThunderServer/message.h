@@ -10,7 +10,7 @@ public:
     Header(int type){
         this->type = type;
         this->headSize = sizeof(*this);
-        this->dataSize = -1;
+        this->dataSize = 0;
     }
     QByteArray toByteArray(){
         return QByteArray((char*)&type,sizeof(type))
@@ -49,6 +49,7 @@ public:
     }
     void append(QString& str){
         this->data.append(str);
+        this->header.setDataSize(data.size());
     }
     QByteArray getData() const;
     Header getHeader() const;

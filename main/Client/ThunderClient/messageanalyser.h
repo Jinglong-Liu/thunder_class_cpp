@@ -64,6 +64,9 @@ signals:
     void correctOnlineNum(int num);
 public slots:
 private:
+    //QQueue<QByteArray>MessageQueue;
+public:
+
 };
 
 #endif // MESSAGEANALYSER_H

@@ -25,6 +25,7 @@ ClientMain::ClientMain()
     MessageAnalyser *analyser = new MessageAnalyser();
 
     connect(receiver,&RecvMsg::recvMsg,analyser,&MessageAnalyser::analyser);
+
     connect(analyser,&MessageAnalyser::studentLoginSuccessFul,loginViewHandler,&LoginViewHandler::loginSuccessful);
     connect(analyser,&MessageAnalyser::studentLoginSuccessFul,studentViewHandler,&StudentViewHandler::handleStudentLoginSuccessful);
     connect(analyser,&MessageAnalyser::addNewStudent,studentViewHandler,&StudentViewHandler::handleAddNewStudent);
@@ -88,11 +89,7 @@ void ClientMain::doConnectRequest(QString ip, unsigned short port)
         qDebug()<<"连接成功";
         //ui
         login->connectSucceed();
-        //QThreadPool::globalInstance()->start(connectRequest);
-        //
         tryToRecvMsg(this->socket);
-        //socket->write("123");
-        //
     }
     else {
         qDebug()<<"连接失败";
@@ -104,5 +101,6 @@ void ClientMain::tryToRecvMsg(QTcpSocket *socket)
 {
     //receiver->run();//只可以单线运行...
     receiver->start();//这样貌似是可以的
+    //receiver->receive();
 }
 

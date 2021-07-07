@@ -56,8 +56,8 @@ public:
         Message message(h,info->toByteArray());
 
         for(auto& s:Data::instance()->getStudentSockets()){
-            s->write(message.toByteArray());
-            if(s->waitForBytesWritten()){
+            if(s->bytesAvailable() == 0){
+                s->write(message.toByteArray());
                 qDebug()<<"broadcastNewStudent";
             }
         }
@@ -72,10 +72,10 @@ public:
         Message message(header);
         message.append(num);
 
-        for(auto& socket:Data::instance()->getStudentSockets()){
-            socket->write(message.toByteArray());
-            if(socket->waitForBytesWritten()){
-               qDebug()<<"broadcaseOnlineNumber" + QString::number(num);
+        for(auto& s:Data::instance()->getStudentSockets()){
+            if(s->bytesAvailable() == 0){
+                s->write(message.toByteArray());
+                qDebug()<<"broadcaseOnlineNumber";
             }
         }
         semo.release();
@@ -86,6 +86,7 @@ public slots:
 private:
     QMutex mutex;
     QSemaphore semo;
+
 };
 
 #endif // STUDENTLOGINREQUESTHANDLER_H
