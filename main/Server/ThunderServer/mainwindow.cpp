@@ -11,9 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     qRegisterMetaType<Prepare>("Prepare");
     data = Data::instance();//一份，注意线程同步
 
-    onlineData = new OnlineData();
-    //analyser = new AnalysisMsg();
-    //correspondThread = new QThread();
+
     correspond = new Correspond(data);
     //correspond->moveToThread(correspondThread);
     ui->setupUi(this);

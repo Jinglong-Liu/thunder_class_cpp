@@ -25,7 +25,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        analysismsg.cpp \
         correspond.cpp \
         data.cpp \
         datahandler.cpp \
@@ -42,7 +41,6 @@ SOURCES += \
         util.cpp
 
 HEADERS += \
-        analysismsg.h \
         config.h \
         correspond.h \
         data.h \

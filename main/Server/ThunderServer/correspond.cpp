@@ -1,6 +1,5 @@
 #include "correspond.h"
 #include "mainwindow.h"
-#include "analysismsg.h"
 #include"config.h"
 #include<QThreadPool>
 #include"messageanalyser.h"

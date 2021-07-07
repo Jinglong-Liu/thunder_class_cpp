@@ -5,8 +5,6 @@
 #include<QThread>
 #include"correspond.h"
 #include"data.h"
-#include "onlinedata.h"
-#include "analysismsg.h"
 #include "msgsender.h"
 namespace Ui {
 class MainWindow;
@@ -27,7 +25,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     Data *data;
-    OnlineData *onlineData;
+
     Correspond* correspond;
     //AnalysisMsg* analyser;
     //QThread* correspondThread;
