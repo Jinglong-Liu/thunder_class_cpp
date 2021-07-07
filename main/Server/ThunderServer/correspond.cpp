@@ -1,13 +1,15 @@
 #include "correspond.h"
 #include "mainwindow.h"
-#include "analysismsg.h"
-#include "msgrecevier.h"
 #include"config.h"
 #include<QThreadPool>
+#include"messageanalyser.h"
+Correspond::Correspond()
+{
+    //emit online_num(0);
+}
 
-
-Correspond::Correspond(){
-    this->data = Data::getInstance();
+Correspond::Correspond(Data *data){
+    this->data = data;
 }
 
 
@@ -17,12 +19,10 @@ void Correspond::startListen(QString ip, unsigned short port)
     server = new QTcpServer();
 
     server->listen(QHostAddress(ip),port);
-    //emit online_num(0);
     //
     connect(server,&QTcpServer::newConnection,this,[=](){
         QTcpSocket* socket = server->nextPendingConnection();
         Util::tcpSocketMutex.lock();
-
         Util::tcpSockets.insert(socket);
         qDebug()<<Util::tcpSockets.size();
         emit online_num(Util::tcpSockets.size());
@@ -32,42 +32,25 @@ void Correspond::startListen(QString ip, unsigned short port)
         //statuBa->setText("在线人数" + QString(sockets.size()));
         //检测是否可以接受数据
         connect(socket,&QTcpSocket::readyRead,this,[=](){
-            //
-            MsgRecevier* receiver = new MsgRecevier(socket);
-            receiver->start();
-           // receiver->deleteLater();
-
-            ///
-            /// \brief message
-/*
             QByteArray message = socket->readAll();
             //TODO:处理数据，传入这个socket和其他所有socket
             qDebug()<<"recv:"+message;
-            //多线程处理，注意线程互斥
+            Message m(message);
 
-            AnalysisMsg *analyser = new AnalysisMsg(socket,message,data);
-            //analyser->analyse();
-            connect(analyser,&AnalysisMsg::send,this,[=](Prepare p){
-                qDebug()<<"messageToSend"<<p.messageToSend;
-                for(auto socket:p.socketsToSend){
-                    socket->write(p.messageToSend);
-                }
-            });
-            connect(analyser,&AnalysisMsg::broadcastOnlineNumber,sender,&MsgSender::broadcastOnlineNum);//untested
-
-            QThreadPool::globalInstance()->start(analyser);//在运行
-            //QByteArray backData = /
-            //QTcpSocket backSocket =
-            //TODO:回发数据
-            //ui->record->append("client say:" + data);*/
+            MessageAnalyser *a = new MessageAnalyser(m,socket);
+            a->run();//单线程可以收发的
+            //QThreadPool::globalInstance()->start(a);//可以接收，不可以发送...(子线程)
         });
-
+        //学生退出(暂时没有考虑老师)
         connect(socket,&QTcpSocket::disconnected,this,[=](){
+            //TODO
             socket->close();
             sockets.remove(socket);
-            //Data::getInstance()->getStudentSockets()->remove(socket);
             socket->deleteLater();
-            emit online_num(sockets.size());
+            emit online_num(sockets.size());//这个不大对
+
+            DataHandler* handler = new DataHandler();
+            handler->setStudentOffline(socket);//ok.
         });
     });
 

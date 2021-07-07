@@ -3,20 +3,23 @@
 
 #include <QObject>
 #include"data.h"
-#include"msgsender.h"
 class DataHandler : public QObject
 {
     Q_OBJECT
 public:
-    explicit DataHandler(QTcpSocket* socket,QObject *parent = nullptr);
-    void handleStudentLoginRequest(QString id,QString password);
+    explicit DataHandler(QObject *parent = nullptr);
+    void addOnlineStudent(QTcpSocket*socket,QString id){
+        Data::instance()->setStudentOnline(socket,id);
+    }
+    void setStudentOffline(QTcpSocket *socket){
+        Data::instance()->setStudentOffline(socket);
+    }
+
 signals:
 
 public slots:
 private:
     Data *data;
-    MsgSender *sender;
-    QTcpSocket *socket;
 };
 
 #endif // DATAHANDLER_H

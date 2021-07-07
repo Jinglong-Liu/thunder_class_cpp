@@ -12,6 +12,7 @@ class Correspond: public QObject,public QRunnable
     Q_OBJECT
 public:
     Correspond();
+    Correspond(Data *data);
     void startListen(QString ip,unsigned short port);
     void run()override;
     void recvAddr(QString ip,unsigned short port);

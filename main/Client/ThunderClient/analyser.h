@@ -9,7 +9,7 @@ class Analyser:public QObject
 public:
     Analyser();
     //Analyser(QByteArray message);
-    void analyse(Message message);//TODO
+    void analyse(QByteArray message);//TODO
     //QByteArray getMessage() const;
     //void setMessage(const QByteArray &value);
 
@@ -22,7 +22,8 @@ signals:
     void teacherLoginFail();
     void UpdateonlineNumber(int num);
 private:
-    Message message;
+    QByteArray message;
+    int head;
 };
 
 #endif // ANALYSER_H

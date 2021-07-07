@@ -38,6 +38,7 @@ private slots:
 
 private:
 
+    //static Login* loginView;
     ConnectRequest* connectRequest;
     StudentView *studentView;
     StudentInfo* student;

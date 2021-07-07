@@ -8,22 +8,14 @@ int main(int argc, char *argv[])
     w.show();
     StudentInfo st("1000000","123456","456789");
     qDebug()<<sizeof (st);
-    Data *data = Data::getInstance();
+    Data *data = Data::instance();
 
-    for(QString str:data->getStudents()->keys()){
-        StudentInfo *info = data->getStudents()->value(str);
+    for(QString str:data->getStudentTable().keys()){
+        StudentInfo *info = data->getStudentTable().value(str);
         qDebug()<<info->getId()<<info->getName()<<info->getPassword();
     }
-
-    int x = 45689;
-    QByteArray _x((char*)&x,sizeof(x));
-    qDebug()<<"_x:" + _x;
-    _x += "你是猪";
-    QByteArray xhead = _x.mid(0,4);
-    QByteArray other = _x.mid(4);
-    int __x = *(int*)_x.data();
-    qDebug()<<__x<<endl;
-    qDebug()<<QString(other);
+    //qDebug()<<Util::toHexByteArray(0x80000000); //7f ff ff ff
+    //qDebug()<<Util::toUint32_t(QByteArray("80000000"));
     return a.exec();
 }
 

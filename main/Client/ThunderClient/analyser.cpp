@@ -10,11 +10,11 @@ Analyser::Analyser(QByteArray message)
     this->message = message;
     this->head = Util::toUint32_t(message,0,8);
 }
-
-void Analyser::analyse(Message message)
+*/
+void Analyser::analyse(QByteArray message)
 {
     qDebug()<<"analyse..";
-    int type =
+    this->head = Util::toUint32_t(message,0,8);
     qDebug()<<"head == " + QString::number(head,16);
     switch (this->head) {
         case 0x12:{
@@ -59,7 +59,7 @@ void Analyser::analyse(Message message)
             break;
     }
 }
-
+/*
 QByteArray Analyser::getMessage() const
 {
     return message;

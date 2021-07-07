@@ -2,32 +2,34 @@
 #define DATA_H
 #include<QtCore>
 #include<QMap>
-#include<QTcpSocket>
+#include"config.h"
 struct StudentInfo{
     //定长数据容易传输
-    //QString id;
-    //QString password;
-    //QString name;
     wchar_t id[20] = {'\0'};
     wchar_t password[20] = {'\0'};
     wchar_t name[20] = {'\0'};
     int id_len;
     int pwd_len;
     int name_len;
-    int state;//0不在线，1在线
-    //sizeof() =  132
+    QTcpSocket *socket = nullptr;//emmmmmmm
 public:
     StudentInfo();
     StudentInfo(QString id,QString password,QString name);
-
+    bool operator== (StudentInfo& info){
+        return this->getId() == info.getId();
+    }
     QString getId() const;
     //void setId(const QString &value);
     QString getPassword() const;
     //void setPassword(const QString &value);
     QString getName() const;
     //void setName(const QString &value);
-    int getState() const;
-    void setState(int value);
+    QTcpSocket *getSocket() const;
+    void setSocket(QTcpSocket *value);
+    QByteArray toByteArray(){
+        QByteArray res((char*)this,sizeof(*this));
+        return res;
+    }
 };
 struct TeacherInfo{
     QString id;
@@ -38,48 +40,79 @@ public:
     QString getId() const;
     void setId(const QString &value);
 };
-class Course{
-private:
-    QString courseName;
-    QHash<QString,TeacherInfo*>teachers;
-    QMap<QString,StudentInfo*>students;
-public:
-
-};
 
 class Data
 {
 public:
-    static Data* getInstance(){
-        return dataInstance;
+    static Data* instance(){
+        return data;
     }
-    static void release(){
-        if(dataInstance != nullptr){
-            delete dataInstance;
-            dataInstance = nullptr;
+    QMap<QString, StudentInfo *> getStudentTable() const;
+    QList<QTcpSocket*> getStudentSockets(){
+        QList<QTcpSocket*>res;
+        studentSocketsMutex.lock();
+        for(auto& info:studentTable.values()){
+            if(info->getSocket()!=nullptr){
+                res.push_back(info->getSocket());
+            }
+        }
+        studentSocketsMutex.unlock();
+        return res;
+    }
+    void setStudentOnline(QTcpSocket *socket,QString id){
+        studentTableMutex.lock();
+        for(QString _id:studentTable.keys()){
+            if(_id == id){
+                studentTable.value(_id)->setSocket(socket);
+            }
+        }
+        studentTableMutex.unlock();
+    }
+    void setStudentOffline(QTcpSocket *socket,StudentInfo*info){
+        studentTableMutex.lock();
+        for(QString id:studentTable.keys()){
+            if(id == info->id){
+                studentTable.value(id)->setSocket(nullptr);
+            }
+        }
+        studentTableMutex.unlock();
+    }
+    void setStudentOffline(QTcpSocket *socket){
+        for(auto &info:studentTable.values()){
+            if(socket == info->socket){
+                info->setSocket(nullptr);
+                qDebug()<<"a student off line";
+            }
         }
     }
-    QMap<QString, StudentInfo *>* getStudents() const;
-
-
-
-    QMap<QTcpSocket *, StudentInfo *> *getOnlineStudents() const;
-
+    int getOnlineStudentNumber()const{
+        int count = 0;
+        for(auto info:studentTable.values()){
+            if(info->getSocket()!=nullptr){
+                count++;
+            }
+        }
+        return count;
+    }
+    QList<QTcpSocket*> getSocketsExcepted(QString id);
+    int getOnlineNums(){
+        int ret = 0;
+        for(auto info:studentTable.values()){
+            if(info->getSocket()!=nullptr){
+                ret++;
+            }
+        }
+        return ret;
+    }
 private:
-    static Data *dataInstance;
-
-    QMap<QString,StudentInfo*>*students;
-    void initStudents();
-
-
-    //QSet<QString>onlineStudentId;
-    QMap<QTcpSocket*,StudentInfo*>*onlineStudents;
-    //QSet<QTcpSocket*>*studentSockets;
-    QTcpSocket*teacherSocket;
-
-private:
-    Data(const Data&);
-    //Data& operator=(const Data&);//
     Data();
+    QMap<QString,StudentInfo*>studentTable;
+    QMutex studentTableMutex;
+    QMutex studentSocketsMutex;
+
+    void initStudents();
+    static Data* data;
+
 };
+
 #endif // DATA_H

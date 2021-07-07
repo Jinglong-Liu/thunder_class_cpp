@@ -8,7 +8,6 @@ class MsgSender:public QObject
 public:
     MsgSender(QTcpSocket *socket);
     //void run()override;
-    void send(QTcpSocket* socket,Message message);
 
     void sendStudentLoginRequest(QString id,QString password);
 private:

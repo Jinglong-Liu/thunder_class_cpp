@@ -28,15 +28,19 @@ SOURCES += \
         analyser.cpp \
         clientmain.cpp \
         connectrequest.cpp \
+        error.cpp \
+        loginviewhandler.cpp \
         main.cpp \
         login.cpp \
+        message.cpp \
+        messageanalyser.cpp \
+        messagesender.cpp \
         model/student.cpp \
-        msganalyser.cpp \
-        msgreceiver.cpp \
         msgsender.cpp \
         onlinedata.cpp \
         recvmsg.cpp \
         studentview.cpp \
+        studentviewhandler.cpp \
         util.cpp
 
 HEADERS += \
@@ -44,14 +48,18 @@ HEADERS += \
         clientmain.h \
         config.h \
         connectrequest.h \
+        error.h \
         login.h \
+        loginviewhandler.h \
+        message.h \
+        messageanalyser.h \
+        messagesender.h \
         model/student.h \
-        msganalyser.h \
-        msgreceiver.h \
         msgsender.h \
         onlinedata.h \
         recvmsg.h \
         studentview.h \
+        studentviewhandler.h \
         util.h
 
 FORMS += \

@@ -1,44 +1,45 @@
 #include "data.h"
-Data *Data::dataInstance = new Data();
-
-void Data::initStudents()
-{
-
-    for(int i = 1;i<=20;i++){
-        StudentInfo *st = new StudentInfo(QString::number(191000000 + i),"123456",QString::number(10000 + i));
-        //studentTable.insert(st->getId(),st);
-        students->insert(st->getId(),st);
-    }
-}
-
-QMap<QTcpSocket *, StudentInfo *> *Data::getOnlineStudents() const
-{
-    return onlineStudents;
-}
-
-
+Data* Data::data = new Data();
 Data::Data()
 {
-    students = new QMap<QString,StudentInfo*>();
-    onlineStudents = new QMap<QTcpSocket*,StudentInfo*>();
-    teacherSocket = new QTcpSocket();
+
     initStudents();
 }
 
-
-QMap<QString, StudentInfo *>* Data::getStudents() const
+QMap<QString, StudentInfo *> Data::getStudentTable() const
 {
-    return students;
+    return studentTable;
 }
 
-int StudentInfo::getState() const
-{
-    return state;
+QList<QTcpSocket *> Data::getSocketsExcepted(QString id){
+    QList<QTcpSocket*>ret;
+    for(auto _id:studentTable.keys()){
+        if(_id == id || studentTable.value(_id)->getSocket() == nullptr){
+            continue;
+        }
+        ret.append(studentTable.value(_id)->getSocket());
+    }
+    //teacher?
+    return ret;
 }
 
-void StudentInfo::setState(int value)
+
+void Data::initStudents()
 {
-    state = value;
+    for(int i = 1;i<=20;i++){
+        StudentInfo *st = new StudentInfo(QString::number(191000000 + i),"123456",QString::number(10000 + i));
+        studentTable.insert(st->getId(),st);
+    }
+}
+
+QTcpSocket *StudentInfo::getSocket() const
+{
+    return socket;
+}
+
+void StudentInfo::setSocket(QTcpSocket *value)
+{
+    socket = value;
 }
 
 StudentInfo::StudentInfo()
@@ -63,6 +64,8 @@ QString StudentInfo::getName() const
 {
     return QString::fromWCharArray(name);
 }
+
+
 
 QString StudentInfo::getPassword() const
 {
