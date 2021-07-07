@@ -1,6 +1,6 @@
 
 #include <QApplication>
-#include"../include/clientmain.h"
+#include"../../include/main/clientmain.h"
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);

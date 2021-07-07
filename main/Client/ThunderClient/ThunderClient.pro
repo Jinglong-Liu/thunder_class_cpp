@@ -25,28 +25,26 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        ./src/clientmain.cpp \
+        ./src/main/clientmain.cpp \
+        ./src/main/main.cpp \
         ./src/control/connectrequest.cpp \
-        ./src/error.cpp \
         ./src/control/loginviewhandler.cpp \
-        ./src/main.cpp \
-        ./src/view/login.cpp \
-        ./src/model/message.cpp \
         ./src/control/messageanalyser.cpp \
         ./src/control/messagereceiver.cpp \
         ./src/control/messagesender.cpp \
-        ./src/model/student.cpp \
-        ./src/model/mydata.cpp \
         ./src/control/studentoperationhandler.cpp \
-        ./src/view/studentview.cpp \
         ./src/control/studentviewhandler.cpp \
+        ./src/model/student.cpp \
+        ./src/model/message.cpp \
+        ./src/model/mydata.cpp \
+        ./src/view/login.cpp \
+        ./src/view/studentview.cpp \
+        ./src/utils/error.cpp \
         ./src/utils/util.cpp
-
 HEADERS += \
-        ./include/clientmain.h \
+        ./include/main/clientmain.h \
         ./include/config/config.h \
         ./include/control/connectrequest.h \
-        ./include/config/error.h \
         ./include/view/login.h \
         ./include/control/loginviewhandler.h \
         ./include/model/message.h \
@@ -59,6 +57,7 @@ HEADERS += \
         ./include/view/studentview.h \
         ./include/control/studentviewhandler.h \
         ./include/utils/util.h \
+        ./include/utils/error.h \
         ./include/config.h \
         ./include/control/control.h \
         ./include/model/model.h

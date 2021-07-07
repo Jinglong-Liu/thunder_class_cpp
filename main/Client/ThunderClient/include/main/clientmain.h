@@ -1,6 +1,6 @@
 #ifndef CLIENTMAIN_H
 #define CLIENTMAIN_H
-#include"config.h"
+#include"../config.h"
 class ClientMain:public QObject
 {
     Q_OBJECT

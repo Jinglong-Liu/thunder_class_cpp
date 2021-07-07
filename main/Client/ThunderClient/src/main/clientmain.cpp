@@ -1,4 +1,4 @@
-#include"../include/clientmain.h"
+#include"../../include/main/clientmain.h"
 ClientMain::ClientMain()
 {
 
@@ -6,13 +6,9 @@ ClientMain::ClientMain()
     loginViewHandler = new LoginViewHandler(login);
     studentView = new StudentView();
     studentViewHandler = new StudentViewHandler(studentView);
-
     socket = new QTcpSocket;
-
-
-    //analyser = new Analyser();
     receiver = new MessageReceiver(socket);
-    //sender = new MsgSender(socket);
+
     MessageSender* sender = new MessageSender(socket);
     MessageAnalyser *analyser = new MessageAnalyser();
 
