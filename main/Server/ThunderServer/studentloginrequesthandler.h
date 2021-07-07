@@ -67,17 +67,16 @@ public:
     void broadcaseOnlineNumber(int num){
 
         semo.acquire();
-
         Header header(BROADCAST_TYPE::CORRECT_ONLINENUM);
         Message message(header);
         message.append(num);
-
         for(auto& s:Data::instance()->getStudentSockets()){
             if(s->bytesAvailable() == 0){
                 s->write(message.toByteArray());
                 qDebug()<<"broadcaseOnlineNumber";
             }
         }
+        qDebug()<<"学生人数:"<<Data::instance()->getOnlineStudentNumber();
         semo.release();
     }
 signals:

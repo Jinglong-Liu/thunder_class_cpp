@@ -24,6 +24,8 @@ private:
     Data *data;
 signals:
     void online_num(int num);
+    void online_student_num(int num);
+    void online_teacher_num(int num);
 };
 
 #endif // CORRESPOND_H

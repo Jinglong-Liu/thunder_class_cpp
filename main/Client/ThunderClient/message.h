@@ -53,13 +53,13 @@ public:
     }
     void append(QString& str){
         this->data.append(str);
+        this->header.setDataSize(data.size());
     }
     QByteArray getData() const;
     Header getHeader() const;
     bool isSingle(){
         return data.size() == header.getDataSize();
     }
-    //这里出错，解析不对
     QList<Message> splitMessage(){
         QList<Message>list;
         Message next;

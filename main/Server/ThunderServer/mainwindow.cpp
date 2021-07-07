@@ -8,10 +8,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    qRegisterMetaType<Prepare>("Prepare");
-    data = Data::instance();//一份，注意线程同步
-
-
     correspond = new Correspond(data);
     //correspond->moveToThread(correspondThread);
     ui->setupUi(this);
@@ -25,8 +21,12 @@ MainWindow::MainWindow(QWidget *parent) :
         ui->online_num->setNum(num);
         //在线人数变化
     });
-
-    //connect()
+    connect(correspond,&Correspond::online_student_num,this,[=](int num){
+        ui->online_student->setNum(num);
+    });
+    connect(correspond,&Correspond::online_teacher_num,this,[=](int num){
+        ui->online_teacher->setNum(num);
+    });
 
 }
 
@@ -41,10 +41,6 @@ void MainWindow::on_start_clicked()
     ui->start->setDisabled(true);
     QString ip = ui->ip->text();
     unsigned short port = ui->port->text().toUShort();
-    //server->listen(QHostAddress::Any,port);
-    emit start(ip,port);
-
-    //QThreadPool::globalInstance()->start(correspond);//can't listen?客户端可以连接，服务器没法监听
-
+    correspond->recvAddr(ip,port);
     correspond->run();//单线程倒是可以...
 }

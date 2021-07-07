@@ -38,6 +38,7 @@ SOURCES += \
         onlinedata.cpp \
         servermain.cpp \
         studentloginrequesthandler.cpp \
+        studentlogouthandler.cpp \
         util.cpp
 
 HEADERS += \
@@ -54,6 +55,7 @@ HEADERS += \
         onlinedata.h \
         servermain.h \
         studentloginrequesthandler.h \
+        studentlogouthandler.h \
         util.h
 
 FORMS += \

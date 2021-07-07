@@ -38,8 +38,8 @@ private:
         qDebug()<<"password = " + password;//ok.
         StudentLoginRequestHandler *s = new StudentLoginRequestHandler();
         s->handle(socket,id,password);
-
     }
+
 };
 
 #endif // MESSAGEANALYSER_H
